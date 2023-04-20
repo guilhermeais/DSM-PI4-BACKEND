@@ -1,0 +1,24 @@
+{
+  "name": "backend-pi4",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/hapi": "^21.3.1",
+    "bcrypt": "^5.1.0",
+    "blipp": "^4.0.2",
+    "boom": "^7.3.0",
+    "dotenv": "^16.0.3",
+    "joi": "^17.9.1",
+    "mysql2": "^3.2.3",
+    "nodemon": "^2.0.22",
+    "sequelize": "^6.31.0"
+  }
+}
