@@ -10,6 +10,15 @@ const routes = [
             handler: controler.create,
             validate: schema.create
         }
+    },
+    {
+        method: "POST",
+        path: '/user/auth',
+        config:{
+            description: 'Authenticate User',
+            handler: controler.auth,
+            validate: schema.auth
+        }
     }
 ]
 
