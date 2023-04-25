@@ -1,6 +1,6 @@
 const joi = require('joi')
 
-exports.create = {
+const create = {
     payload: joi.object({
         name: joi.string().required(),
         email: joi.string().required(),

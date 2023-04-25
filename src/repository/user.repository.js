@@ -1,15 +1,15 @@
-const db = require('../database/db')
-const sequelize = require('sequelize')
+const db = require('../database/db');
+const sequelize = require('sequelize');
 
-const register = async(Nome, Email, Password) => {
+const register = async(Name, Email, Password) => {
    try {
-    const sql = `INSERT INTO Usuarios(Email, Nome, Senha) VALUES(:Email, :Nome, :Password)`
+    const sql = `INSERT INTO Users(Login, Name, Password) VALUES(:Email, :Name, :Password)`;
 
     const res = await db.query(sql, {
-        replacements: {Email: Email, Nome: Nome, Password: Password},
+        replacements: {Email,Name,Password},
             type: sequelize.QueryTypes.INSERT
         })
-    return res
+    return res;
    } catch (error) {
     console.log(error);
    }
@@ -17,14 +17,14 @@ const register = async(Nome, Email, Password) => {
 
 const searchUser = async (Login) => {
     try {
-        const sql = `SELECT Email, Senha, Nome FROM Usuarios where Email = :login`
+        const sql = `SELECT Login, Password, Name FROM Users where Login = :Login`;
 
         const res = await db.query(sql, {
-            replacements: {login: Login},
+            replacements: {Login},
             type: sequelize.QueryTypes.SELECT
         })
 
-        return res
+        return res;
 
     } catch (error) {
         console.log(error);
