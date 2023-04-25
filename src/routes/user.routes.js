@@ -1,7 +1,13 @@
-const Usercontroler = require('../controllers/user.controller')
-const authController = require('../controllers/auth')
-const consumptionController = require('../controllers/consumption.controller')
-const schema = require('../schemas/user.schemas')
+//controllers
+const UserControler = require('../controllers/user.controller')
+const AuthController = require('../controllers/auth')
+const ConsumptionController = require('../controllers/consumption.controller')
+
+//schemas
+const UserSchema = require('../schemas/user.schemas')
+const AuthSchema = require('../schemas/auth.schemas')
+const ConsumptionSchema = require('../schemas/consumption.schemas')
+
 
 const routes = [
     {
@@ -10,8 +16,8 @@ const routes = [
         config:{
             auth: false,
             description: 'Register User',
-            handler: Usercontroler.create,
-            validate: schema.create
+            handler: UserControler.create,
+            validate: UserSchema.create
         }
     },
     {
@@ -20,8 +26,8 @@ const routes = [
         config:{
             auth: false,
             description: 'Authenticate User',
-            handler: authController.auth,
-            validate: schema.auth
+            handler: AuthController.auth,
+            validate:  AuthSchema.auth
         }
     },
     {
@@ -30,8 +36,8 @@ const routes = [
         config:{
             auth: false,
             description: 'Register Consumption',
-            handler: consumptionController.convertConsumtion,
-            validate: schema.auth
+            handler: ConsumptionController.convertConsumtion,
+            validate: ConsumptionSchema.consumption
         }
     },
 ]
