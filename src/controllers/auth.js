@@ -14,6 +14,7 @@ const auth = async(req, h) => {
             const token = jwt.sign({ username: user[0].Login }, process.env.SECRET);;
 
             const payload = {
+                id: user[0].id,
                 user: user[0].Login,
                 name: user[0].Name,
                 token: token

@@ -1,4 +1,5 @@
 const Hapi = require("@hapi/hapi")
+
 const userRoutes = require("./src/routes/user.routes")
 const consumptionRoutes = require("./src/routes/consumption.routes")
 const authRoutes = require('./src/routes/auth.routes')
@@ -6,7 +7,7 @@ const productRoutes = require('./src/routes/product.routes')
 
 const server = Hapi.server({
     port: 8000,
-    host: "localhost"
+    host: "192.168.10.141"
 })
 
 // Inicializando as rotas

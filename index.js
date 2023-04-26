@@ -1,12 +1,14 @@
 const server = require("./server");
 const blipp = require ('blipp');
-const connect = require('./src/database/db');
 require('dotenv').config();
 const Jwt = require('@hapi/jwt');
+const cors = require('hapi-cors');
 
 (async () =>{
 
     await server.register(Jwt); // registrar plugin JWT
+
+    await server.register({plugin: cors}); // registrar plugin Cors
 
     server.auth.strategy('jwt', 'jwt', { // configurar estratégia do jwt
         keys: process.env.SECRET,

@@ -17,7 +17,7 @@ const register = async(Name, Email, Password) => {
 
 const searchUser = async (Login) => {
     try {
-        const sql = `SELECT Login, Password, Name FROM Users where Login = :Login`;
+        const sql = `SELECT Login, Password, Name, id FROM Users where Login = :Login`;
 
         const res = await db.query(sql, {
             replacements: {Login},
