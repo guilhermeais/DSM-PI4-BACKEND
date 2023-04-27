@@ -20,7 +20,7 @@ const routesAuth = [
         config:{
             auth: false,
             handler: (req, h) =>{
-                h.response('OPAAAA')
+                return h.response('OPAAAA')
             }
         }
     },
