@@ -13,6 +13,18 @@ const routesAuth = [
             validate:  AuthSchema.auth
         }
     },
+
+    {
+        method: "POST",
+        path: '/teste',
+        config:{
+            auth: false,
+            description: 'Authenticate User',
+            handler: (req, h) =>{
+                h.response('OPAAAA')
+            }
+        }
+    },
 ]
 
 module.exports = routesAuth
