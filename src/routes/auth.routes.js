@@ -15,11 +15,10 @@ const routesAuth = [
     },
 
     {
-        method: "POST",
+        method: "GET",
         path: '/teste',
         config:{
             auth: false,
-            description: 'Authenticate User',
             handler: (req, h) =>{
                 h.response('OPAAAA')
             }
