@@ -11,7 +11,7 @@ const auth = async(req, h) => {
         const isValidUser = await compare(req.payload.password, user[0].Password);
         if(isValidUser){
             //gerar Token
-            const token = jwt.sign({ username: user[0].Login }, process.env.SECRET);;
+            const token = jwt.sign({ username: user[0].Login }, `asdkjhafhadsjadf`);;
 
             const payload = {
                 id: user[0].id,
@@ -32,7 +32,7 @@ const auth = async(req, h) => {
 
 //função para buscar usuario
 async function searchUser(Login){
-    const userSearch = await repository.searchUser(Login);
+    const userSearch = await repository.searchUserByLogin(Login);
     return userSearch
 }
 

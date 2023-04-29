@@ -13,6 +13,15 @@ const routesUser = [
             validate: UserSchema.create
         }
     },
+    {
+        method: "GET",
+        path: '/user/{id}',
+        config:{
+            description: 'Infos User',
+            handler: UserControler.searchOneUser,
+            validate: UserSchema.search
+        }
+    },
 ]
 
 module.exports = routesUser

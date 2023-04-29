@@ -21,8 +21,19 @@ const create = async(req, h) => {
     }
 }
 
+const searchOneUser = async(req, h) => {
+    const {id} = req.params
+
+    console.log(id, 'iDDD');
+
+    const userSearch = await repository.searchUserById(id)
+
+    return h.response(userSearch).code(201)
+
+}
+
 async function searchUser(Login){
-    const userSearch = await repository.searchUser(Login)
+    const userSearch = await repository.searchUserByLogin(Login)
     return userSearch
 }
 
@@ -38,5 +49,5 @@ function encrypt(password){
 }
 
 
-module.exports = {create}
+module.exports = {create, searchOneUser}
 

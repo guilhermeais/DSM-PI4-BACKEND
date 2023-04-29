@@ -15,7 +15,7 @@ const register = async(Name, Email, Password) => {
    }
 }
 
-const searchUser = async (Login) => {
+const searchUserByLogin = async (Login) => {
     try {
         const sql = `SELECT Login, Password, Name, id FROM Users where Login = :Login`;
 
@@ -30,5 +30,20 @@ const searchUser = async (Login) => {
         console.log(error);
     }
 }
+const searchUserById = async (id) => {
+    try {
+        const sql = `SELECT Login, Name, id FROM Users where id = :id`;
 
-module.exports = {register, searchUser}
+        const res = await db.query(sql, {
+            replacements: {id},
+            type: sequelize.QueryTypes.SELECT
+        })
+
+        return res;
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+module.exports = {register, searchUserByLogin, searchUserById}

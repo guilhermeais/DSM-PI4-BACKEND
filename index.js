@@ -11,7 +11,7 @@ const cors = require('hapi-cors');
     await server.register({plugin: cors}); // registrar plugin Cors
 
     server.auth.strategy('jwt', 'jwt', { // configurar estratégia do jwt
-        keys: process.env.SECRET,
+        keys: `asdkjhafhadsjadf`,
         verify: {
             aud: false,
             iss: false,

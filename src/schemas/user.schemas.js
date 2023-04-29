@@ -8,4 +8,10 @@ const create = {
     }).required()
 }
 
-module.exports = {create}
+const search = {
+    params: joi.object({
+        id: joi.number().required()
+    })
+}
+
+module.exports = {create, search}

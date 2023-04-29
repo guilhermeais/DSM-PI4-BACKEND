@@ -6,8 +6,8 @@ const authRoutes = require('./src/routes/auth.routes')
 const productRoutes = require('./src/routes/product.routes')
 
 const server = Hapi.server({
-    port: 8000,
-    host: "localhost"
+    port: 8080,
+    host: "0.0.0.0"
 })
 
 // Inicializando as rotas
