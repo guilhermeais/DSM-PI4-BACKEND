@@ -27,7 +27,7 @@ const searchConsumptions = async(product ,date_initial, date_end, amount_initial
             type: sequelize.QueryTypes.SELECT,
             replacements: {product}
         })
-
+        console.log(`Res sql search consumption?: ${res}`);
         return res;
     } catch (error) {
         return error
