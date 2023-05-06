@@ -1,11 +1,10 @@
 const repository = require("../repository/consumption.repository");
 
 const convertConsumtion = async (req, h) => {
-  const { voltage, current, power, idProduct } = req.payload;
+  const { current, power, idProduct } = req.payload;
   const { kwh, consumption } = convertPower(power);
 
   await repository.registerConsumption(
-    voltage,
     current,
     power,
     kwh,
@@ -32,7 +31,6 @@ const searchConsumptions = async (req, h) => {
     amount_end = "",
   } = req.query;
   const { product } = req.params;
-  console.log(`Consumption idProduct: ${product}`);
 
   //buscando os dados no repository
   const consumptions = await repository.searchConsumptions(
@@ -53,13 +51,11 @@ const searchConsumptions = async (req, h) => {
 
 //função para formatar a resposta do banco
 function createPayloadResponse(consumptions) {
-  console.log('convert consumption');
   let consumptionResponse = [];
   let consumptionDetail = [];
 
   for (let i = 0; i < consumptions.length; i++) {
     consumptionDetail.push({
-      Voltage: consumptions[i].Voltage,
       ElectricCurrent: consumptions[i].ElectricCurrent,
       Power: consumptions[i].Power,
       Consumption: consumptions[i].Consumption,
@@ -70,8 +66,6 @@ function createPayloadResponse(consumptions) {
       Datetime: consumptions[i].ConsumptionDate,
       ConsumptionDetail: consumptionDetail[i],
     });
-
-    console.log(`consumption converted: ${consumptionResponse}`);
   }
 
   return consumptionResponse;
