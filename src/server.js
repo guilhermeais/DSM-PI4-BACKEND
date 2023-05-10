@@ -1,9 +1,9 @@
 const Hapi = require("@hapi/hapi")
 
-const userRoutes = require("./src/routes/user.routes")
-const consumptionRoutes = require("./src/routes/consumption.routes")
-const authRoutes = require('./src/routes/auth.routes')
-const productRoutes = require('./src/routes/product.routes')
+const userRoutes = require("./routes/user.routes")
+const consumptionRoutes = require("./routes/consumption.routes")
+const authRoutes = require('./routes/auth.routes')
+const productRoutes = require('./routes/product.routes')
 
 const server = Hapi.server({
     port: 8080,

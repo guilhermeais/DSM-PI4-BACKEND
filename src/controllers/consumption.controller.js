@@ -71,4 +71,4 @@ function createPayloadResponse(consumptions) {
   return consumptionResponse;
 }
 
-module.exports = { convertConsumtion, searchConsumptions };
+module.exports = { convertConsumtion, searchConsumptions, convertPower };
