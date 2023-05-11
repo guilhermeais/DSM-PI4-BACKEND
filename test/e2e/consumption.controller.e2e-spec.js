@@ -4,7 +4,6 @@ import { dropTables, migrateTables } from '../../src/database/migrate-database'
 import { faker } from '@faker-js/faker'
 import sequelize from '../../src/database/db'
 import server from '../../src/server'
-import { convertPower } from '../../src/controllers/consumption.controller'
 import MockDate from 'mockdate'
 import moment from 'moment'
 
@@ -61,7 +60,7 @@ describe('Consumption E2E Suite', () => {
 
       const given = {
         current: 2.5,
-        power: 127,
+        power: 62.5,
         idProduct: product.id,
       }
 
@@ -75,21 +74,20 @@ describe('Consumption E2E Suite', () => {
         `SELECT * FROM ConsumptionData;`
       )
 
-      const { kwh, consumption } = convertPower(given.power)
+      const expectedKwm = 0.001042 
 
       const expectedConsumption = {
         id: expect.any(Number),
         Power: given.power,
-        ElectricCurrent: given.current,
-        Consumption: kwh,
-        ConsumptionDate: moment(actualDate).format('yyyy-MM-dd HH:mm:ss'),
-        Amount: consumption,
+        EletricCurrent: given.current,
+        Kwm: expectedKwm,
+        KwmDate: moment(actualDate).format('yyyy-MM-dd HH:mm:ss'),
         idProduct: given.idProduct,
       }
 
       expect({
         ...dbConsumption,
-        ConsumptionDate: moment(dbConsumption.ConsumptionDate).format(
+        KwmDate: moment(dbConsumption.KwmDate).format(
           'yyyy-MM-dd HH:mm:ss'
         ),
       }).toEqual(expectedConsumption)
