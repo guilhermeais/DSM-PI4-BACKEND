@@ -29,11 +29,10 @@ async function migrateTables() {
     await sequelize.query(`
   CREATE TABLE ConsumptionData (
     id INT NOT NULL AUTO_INCREMENT,
-    ElectricCurrent FLOAT NOT NULL,
+    EletricCurrent FLOAT NOT NULL,
     Power FLOAT NOT NULL,
-    ConsumptionDate DATETIME NOT NULL,
-    Consumption FLOAT NOT NULL,
-    Amount FLOAT NOT NULL,
+    KwmDate DATETIME NOT NULL,
+    Kwm FLOAT NOT NULL,
     idProduct INT NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (idProduct) REFERENCES Products (id)
