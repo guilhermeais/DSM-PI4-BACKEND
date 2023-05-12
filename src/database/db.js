@@ -36,6 +36,7 @@ const isTesting = env.NODE_ENV === 'test'
 const sequelize = new Sequelize(isTesting ? testingConfig : config)
 
 try {
+  console.log('Conectando ao banco de dados...', config)
   sequelize.authenticate().then(() => {
     console.log(`Conectado ao banco aEnergy`)
   })
