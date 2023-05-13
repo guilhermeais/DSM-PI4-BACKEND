@@ -11,6 +11,8 @@ const env = {
   DB_TYPE: process.env.DB_TYPE || 'mysql',
   DB_PORT: process.env.DB_PORT || '3306',
   DB_CERT: process.env.DB_CERT,
+
+  TZ: process.env.TZ || 'America/Sao_Paulo',
 }
 
 module.exports = { env }

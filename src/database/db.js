@@ -11,6 +11,7 @@ const config = {
   database: env.DB_DATABASE,
   dialect: env.DB_TYPE,
   port: env.DB_PORT,
+  timezone: env.TZ,
   dialectOptions: {
     ssl: env.DB_CERT && {
       require: true,
@@ -29,6 +30,7 @@ const testingConfig = {
   password: 'test',
   database: 'test',
   dialect: 'mysql',
+  timezone: env.TZ,
   port: '3306',
 }
 

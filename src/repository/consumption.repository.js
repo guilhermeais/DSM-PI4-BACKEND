@@ -3,11 +3,12 @@ const sequelize = require('sequelize')
 
 const registerConsumption = async ({ current, power, kwm, idProduct }) => {
   try {
+    const now = new Date()
     const sql = `
         INSERT INTO ConsumptionData(EletricCurrent, Power, KwmDate, Kwm, idProduct)
-            VALUES(:current, :power, NOW(), :kwm, :idProduct)`
+            VALUES(:current, :power, :now, :kwm, :idProduct)`
     const res = await db.query(sql, {
-      replacements: { current, power, kwm, idProduct },
+      replacements: { current, power, kwm, idProduct, now },
       type: sequelize.QueryTypes.INSERT,
     })
     console.log(sql)

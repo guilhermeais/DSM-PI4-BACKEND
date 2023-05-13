@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "pretest:e2e": "docker compose up -d db-test",
-    "test:e2e": "cross-env NODE_ENV=test vitest --config vitest.config.e2e.js",
+    "test:e2e": "cross-env NODE_ENV=test TZ=America/Sao_Paulo vitest --config vitest.config.e2e.js",
     "posttest:e2e": "docker compose down",
-    "start": "nodemon src/index.js",
+    "start": "cross-env TZ=America/Sao_Paulo nodemon src/index.js",
     "migrate:up": "node src/database/migrate-database.js up",
     "migrate:down": "node src/database/migrate-database.js down"
   },

@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, test } from 'vitest'
+import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, test } from 'vitest'
 import supertest from 'supertest'
 import { dropTables, migrateTables } from '../../src/database/migrate-database'
 import { faker } from '@faker-js/faker'
@@ -10,15 +10,19 @@ import moment from 'moment'
 describe('Consumption E2E Suite', () => {
   describe('POST /consumption', () => {
     const actualDate = new Date()
-
-    beforeEach(async () => {
+    beforeAll(() => {
       MockDate.set(actualDate)
+    })
+    beforeEach(async () => {
       await migrateTables()
     })
 
     afterEach(async () => {
-      MockDate.reset()
       await dropTables()
+    })
+
+    afterAll(() => {
+      MockDate.reset()
     })
 
     async function makeUser() {
