@@ -8,7 +8,6 @@ import { faker } from '@faker-js/faker'
 
 describe('RegisterConsumption', () => {
   let sut
-  let consumptionRepository
   let productRepository
 
   let mockedConsumption
@@ -21,16 +20,12 @@ describe('RegisterConsumption', () => {
     mockedProduct = mockProduct()
     mockedProduct.id = faker.datatype.number()
 
-    consumptionRepository = mock({
-      save: vitest.fn().mockResolvedValue(mockedConsumption),
-    })
-
     productRepository = mock({
       findById: vitest.fn().mockResolvedValue(mockedProduct),
+      registerConsumption: vitest.fn().mockResolvedValue(mockedConsumption)
     })
 
     sut = new RegisterConsumption({
-      consumptionRepository,
       productRepository,
     })
   })
@@ -53,11 +48,11 @@ describe('RegisterConsumption', () => {
     expect(productRepository.findById).toHaveBeenCalledWith(params.productId)
   })
 
-  test('should save the consumption on success', async () => {
+  test('should register the consumption on success', async () => {
     const params = mockDefaultParams()
     const result = await sut.execute(params)
 
-    expect(consumptionRepository.save).toHaveBeenCalledWith(
+    expect(productRepository.registerConsumption).toHaveBeenCalledWith(
       expect.objectContaining({
         eletricCurrent: params.eletricCurrent,
         power: params.power,
@@ -66,7 +61,7 @@ describe('RegisterConsumption', () => {
         productId: params.productId,
       })
     )
-    expect(consumptionRepository.save).toHaveBeenCalledTimes(1)
+    expect(productRepository.registerConsumption).toHaveBeenCalledTimes(1)
 
     expect(result.id).toEqual(mockedConsumption.id)
     expect(result.eletricCurrent).toEqual(params.eletricCurrent)
