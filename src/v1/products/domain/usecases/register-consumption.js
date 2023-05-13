@@ -1,14 +1,11 @@
 import { Consumption } from '../entities/consumption.entity'
 import { EntityNotFoundError } from '../errors/entity-not-found-error'
-import { ConsumptionRepository } from '../protocols/repositores/consumption.repository'
 import { ProductRepository } from '../protocols/repositores/product.repository'
 
-class RegisterConsumption {
+export class RegisterConsumption {
   constructor({
-    consumptionRepository = new ConsumptionRepository(),
     productRepository = new ProductRepository(),
   }) {
-    this.consumptionRepository = consumptionRepository
     this.productRepository = productRepository
   }
 
@@ -26,10 +23,8 @@ class RegisterConsumption {
       productId,
     })
 
-    const { id } = await this.consumptionRepository.save(consumption)
+    const { id } = await this.productRepository.registerConsumption(consumption)
     consumption.id = id
     return consumption
   }
 }
-
-export { RegisterConsumption }
