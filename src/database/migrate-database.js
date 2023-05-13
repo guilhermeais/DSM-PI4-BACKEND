@@ -1,5 +1,5 @@
-const { env } = require('../config/env')
-const sequelize = require('./db')
+import { env } from '../config/env'
+import sequelize from './db'
 
 async function migrateTables() {
   console.info('Migrating Tables...')
@@ -68,7 +68,7 @@ async function dropTables() {
   console.info('Tables dropped!')
 }
 
-module.exports = { migrateTables, dropTables }
+export { migrateTables, dropTables }
 if (process.argv.includes('up')) {
   migrateTables()
     .then(() => process.exit(0))

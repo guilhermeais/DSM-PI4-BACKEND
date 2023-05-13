@@ -1,8 +1,7 @@
-const server = require("./server");
-const blipp = require ('blipp');
-require('dotenv').config();
-const Jwt = require('@hapi/jwt');
-const cors = require('hapi-cors');
+import server from "./server";
+import blipp from  'blipp';
+import Jwt from '@hapi/jwt';
+import cors from 'hapi-cors';
 
 (async () =>{
 

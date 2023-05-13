@@ -1,4 +1,4 @@
-const { BaseError } = require('../../../shared/errors/base-error')
+import { BaseError } from '../../../shared/errors/base-error'
 
 class EntityNotFoundError extends BaseError {
   constructor(entityName) {
@@ -10,4 +10,4 @@ class EntityNotFoundError extends BaseError {
   }
 }
 
-module.exports = { EntityNotFoundError }
+export { EntityNotFoundError }

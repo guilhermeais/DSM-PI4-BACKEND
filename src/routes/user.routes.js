@@ -1,5 +1,5 @@
-const UserControler = require('../controllers/user.controller')
-const UserSchema = require('../schemas/user.schemas')
+import * as UserControler from '../controllers/user.controller'
+import * as UserSchema from '../schemas/user.schemas'
 
 
 const routesUser = [
@@ -24,4 +24,4 @@ const routesUser = [
     },
 ]
 
-module.exports = routesUser
+export default routesUser

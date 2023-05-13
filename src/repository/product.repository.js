@@ -1,5 +1,5 @@
-const db = require('../database/db');
-const sequelize = require('sequelize');
+import db from '../database/db';
+import sequelize from 'sequelize';
 
 const searchProduct = async(idUser) => {
     try {
@@ -30,4 +30,4 @@ const updateProduct = async(name, idUser, UUID) =>{
     }
 }
 
-module.exports = {searchProduct, updateProduct}
+export {searchProduct, updateProduct}

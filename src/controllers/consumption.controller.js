@@ -1,4 +1,4 @@
-const repository = require('../repository/consumption.repository')
+import * as repository from '../repository/consumption.repository'
 
 const convertConsumtion = async (req, h) => {
   const { current: eletrictCurrent, power, idProduct } = req.payload
@@ -68,4 +68,4 @@ function createPayloadResponse(consumptions) {
   return consumptionResponse
 }
 
-module.exports = { convertConsumtion, searchConsumptions, convertPowerToKwm }
+export { convertConsumtion, searchConsumptions, convertPowerToKwm }

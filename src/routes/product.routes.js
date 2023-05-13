@@ -1,5 +1,5 @@
-const controller = require('../controllers/product.controller')
-const schema = require('../schemas/products.schema')
+import * as  controller from '../controllers/product.controller'
+import * as schema from '../schemas/products.schema'
 
 const productRoutes = [
     {
@@ -22,4 +22,4 @@ const productRoutes = [
     }
 ]
 
-module.exports = productRoutes
+export default productRoutes

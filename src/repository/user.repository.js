@@ -1,5 +1,5 @@
-const db = require('../database/db');
-const sequelize = require('sequelize');
+import db from '../database/db';
+import sequelize from 'sequelize';
 
 const register = async(Name, Email, Password) => {
    try {
@@ -46,4 +46,4 @@ const searchUserById = async (id) => {
     }
 }
 
-module.exports = {register, searchUserByLogin, searchUserById}
+export {register, searchUserByLogin, searchUserById}

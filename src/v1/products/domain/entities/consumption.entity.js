@@ -8,9 +8,9 @@ class Consumption {
     this.kwm = Number(this.power / 60 / 1000)
   }
 
-  static create({ id, eletricCurrent, power, kwmDate, productId }) {
+  static create({ id, eletricCurrent, power, kwmDate = new Date(), productId }) {
     return new Consumption({ id, eletricCurrent, power, kwmDate, productId })
   }
 }
 
-module.exports = { Consumption }
+export { Consumption }

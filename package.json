@@ -3,11 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "pretest:e2e": "docker compose up -d db-test",
-    "test:e2e": "cross-env NODE_ENV=test TZ=America/Sao_Paulo vitest --config vitest.config.e2e.js",
+    "test": "cross-env NODE_ENV=test TZ=America/Sao_Paulo vitest",
+    "test:e2e": "npm t -- --config vitest.config.e2e.js",
     "posttest:e2e": "docker compose down",
-    "start": "cross-env TZ=America/Sao_Paulo nodemon src/index.js",
+    "test:unit": "npm t -- --config vitest.config.unit.js",
+    "start": "cross-env TZ=America/Sao_Paulo node --experimental-specifier-resolution=node src/index.js",
     "migrate:up": "node src/database/migrate-database.js up",
     "migrate:down": "node src/database/migrate-database.js down"
   },
@@ -35,6 +38,7 @@
     "cross-env": "^7.0.3",
     "mockdate": "^3.0.5",
     "supertest": "^6.3.3",
-    "vitest": "^0.31.0"
+    "vitest": "^0.31.0",
+    "vitest-mock-extended": "^1.1.3"
   }
 }

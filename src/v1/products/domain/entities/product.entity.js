@@ -1,4 +1,4 @@
-const { randomUUID } = require('crypto');
+import { randomUUID } from 'crypto';
 
 class Product {
   constructor({
@@ -12,6 +12,15 @@ class Product {
     this.userId = userId
     this.uuid = uuid || randomUUID()
   }
+
+  static create({ name, userId, uuid, id }) {
+    return new Product({
+      name,
+      id,
+      userId,
+      uuid,
+    })
+  }
 }
 
-module.exports = { Product }
+export { Product }

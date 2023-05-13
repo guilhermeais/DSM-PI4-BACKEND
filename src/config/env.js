@@ -1,5 +1,4 @@
-require('dotenv').config()
-
+import 'dotenv/config';
 const env = {
   NODE_ENV: process.env.NODE_ENV || 'development',
 
@@ -15,4 +14,4 @@ const env = {
   TZ: process.env.TZ || 'America/Sao_Paulo',
 }
 
-module.exports = { env }
+export { env }

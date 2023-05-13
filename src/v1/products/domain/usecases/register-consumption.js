@@ -1,11 +1,7 @@
-const { Consumption } = require('../entities/consumption.entity')
-const { EntityNotFoundError } = require('../errors/entity-not-found-error')
-const {
-  ConsumptionRepository,
-} = require('../protocols/repositores/consumption.repository')
-const {
-  ProductRepository,
-} = require('../protocols/repositores/product.repository')
+import { Consumption } from '../entities/consumption.entity'
+import { EntityNotFoundError } from '../errors/entity-not-found-error'
+import { ConsumptionRepository } from '../protocols/repositores/consumption.repository'
+import { ProductRepository } from '../protocols/repositores/product.repository'
 
 class RegisterConsumption {
   constructor({
@@ -36,4 +32,4 @@ class RegisterConsumption {
   }
 }
 
-module.exports = { RegisterConsumption }
+export { RegisterConsumption }

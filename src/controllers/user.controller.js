@@ -1,5 +1,5 @@
-const repository = require('../repository/user.repository');
-const bcrypt = require('bcrypt');
+import * as repository from '../repository/user.repository';
+import bcrypt from 'bcrypt';
 
 // Criar Usuarios no banco de dados
 const create = async(req, h) => {
@@ -49,5 +49,5 @@ function encrypt(password){
 }
 
 
-module.exports = {create, searchOneUser}
+export {create, searchOneUser}
 

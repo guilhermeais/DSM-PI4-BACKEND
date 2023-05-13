@@ -1,6 +1,6 @@
 
-const AuthController = require('../controllers/auth')
-const AuthSchema = require('../schemas/auth.schemas')
+import * as AuthController from '../controllers/auth'
+import * as AuthSchema from '../schemas/auth.schemas'
 
 const routesAuth = [
     {
@@ -26,4 +26,4 @@ const routesAuth = [
     },
 ]
 
-module.exports = routesAuth
+export default routesAuth

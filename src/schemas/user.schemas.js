@@ -1,4 +1,4 @@
-const joi = require('joi')
+import joi from 'joi'
 
 const create = {
     payload: joi.object({
@@ -14,4 +14,4 @@ const search = {
     })
 }
 
-module.exports = {create, search}
+export {create, search}

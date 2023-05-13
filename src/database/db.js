@@ -1,5 +1,5 @@
-const { Sequelize } = require('sequelize')
-const { env } = require('../config/env')
+import { Sequelize } from 'sequelize'
+import { env } from '../config/env'
 
 /**
  * @type {import('sequelize').Options}
@@ -46,4 +46,4 @@ try {
   console.error('Unable to connect to the database:', error)
 }
 
-module.exports = sequelize
+export default sequelize

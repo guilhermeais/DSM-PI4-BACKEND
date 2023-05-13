@@ -1,4 +1,4 @@
-const joi = require('joi');
+import joi from 'joi';
 
 const consumptionRegister = {
     payload: joi.object({
@@ -21,4 +21,4 @@ const searchConsumptions = {
     })
 }
 
-module.exports = {consumptionRegister, searchConsumptions}
+export {consumptionRegister, searchConsumptions}

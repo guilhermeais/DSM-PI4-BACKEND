@@ -1,4 +1,4 @@
-const joi = require('joi')
+import joi from 'joi'
 
 const product = {
     params: joi.object({
@@ -14,4 +14,4 @@ const productUpdate = {
     })
 }
 
-module.exports = {product, productUpdate}
+export {product, productUpdate}

@@ -1,5 +1,5 @@
-const ConsumptionController = require('../controllers/consumption.controller')
-const ConsumptionSchema = require('../schemas/consumption.schemas')
+import * as ConsumptionController from '../controllers/consumption.controller'
+import * as ConsumptionSchema from '../schemas/consumption.schemas'
 
 const routesConsumption = [
     {
@@ -23,4 +23,4 @@ const routesConsumption = [
     }
 ]
 
-module.exports = routesConsumption
+export default routesConsumption

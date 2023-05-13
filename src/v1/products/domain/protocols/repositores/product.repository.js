@@ -1,11 +1,9 @@
-const {
-  NotImplementedError,
-} = require('../../../../shared/errors/not-implemented-error')
+import { NotImplementedError } from '../../../../shared/errors/not-implemented-error'
 
 class ProductRepository {
   /**
-   * 
-   * @param {string} id 
+   *
+   * @param {string} id
    * @returns {Promise<Product>}
    */
   async findById(id) {
@@ -13,4 +11,4 @@ class ProductRepository {
   }
 }
 
-module.exports = { ProductRepository }
+export { ProductRepository }

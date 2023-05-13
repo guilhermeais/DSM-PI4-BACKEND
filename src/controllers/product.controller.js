@@ -1,4 +1,4 @@
-const repository = require('../repository/product.repository')
+import * as repository from '../repository/product.repository'
 
 //busca produto
 const searchProuct = async(req, h) => {
@@ -43,4 +43,4 @@ const updateProduct = async(req, h) => {
     return h.response({msg: "Produto atualizado com sucesso"})
 }
 
-module.exports = {searchProuct, updateProduct}
+export {searchProuct, updateProduct}

@@ -1,7 +1,7 @@
 
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const repository = require('../repository/user.repository');
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import * as repository from '../repository/user.repository';
 
 const auth = async(req, h) => {
     //verifica se usuario existe e e tras dados do banco
@@ -48,4 +48,4 @@ async function compare(password, passwordHash){
     return isValidPassword;
 }
 
-module.exports = {auth}
+export {auth}

@@ -1,5 +1,5 @@
-const db = require('../database/db')
-const sequelize = require('sequelize')
+import db from '../database/db'
+import sequelize from 'sequelize'
 
 const registerConsumption = async ({ current, power, kwm, idProduct }) => {
   try {
@@ -42,4 +42,4 @@ const searchConsumptions = async (
   }
 }
 
-module.exports = { registerConsumption, searchConsumptions }
+export { registerConsumption, searchConsumptions }

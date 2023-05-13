@@ -1,4 +1,4 @@
-const joi = require('joi')
+import joi from 'joi'
 
 const auth = {
     payload: joi.object({
@@ -7,4 +7,4 @@ const auth = {
     }).required()
 }
 
-module.exports = {auth}
+export {auth}

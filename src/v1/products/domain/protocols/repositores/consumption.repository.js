@@ -1,19 +1,15 @@
-const {
-  NotImplementedError,
-} = require('../../../../shared/errors/not-implemented-error')
-const { Consumption } = require('../../entities/consumption.entity')
+import { NotImplementedError } from '../../../../shared/errors/not-implemented-error'
+import { Consumption } from '../../entities/consumption.entity'
 
 class ConsumptionRepository {
   /**
-   * 
-   * @param {Consumption} consumption 
+   *
+   * @param {Consumption} consumption
    * @returns {Promise<Consumption>}
    */
-  async save(
-    consumption
-  ) {
+  async save(consumption) {
     throw NotImplementedError(this.constructor.name, this.save.name)
   }
 }
 
-module.exports = { ConsumptionRepository }
+export { ConsumptionRepository }
