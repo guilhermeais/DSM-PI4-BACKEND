@@ -2,11 +2,11 @@ const { env } = require('../config/env')
 const sequelize = require('./db')
 
 async function migrateTables() {
-  await sequelize.authenticate()
   console.info('Migrating Tables...')
   try {
+    await sequelize.authenticate()
     await sequelize.query(`
-  CREATE TABLE Users (
+    CREATE TABLE IF NOT EXISTS Users (
     id INT NOT NULL AUTO_INCREMENT,
     Name VARCHAR(255) NOT NULL,
     Login VARCHAR(255) NOT NULL,
@@ -16,7 +16,7 @@ async function migrateTables() {
 `)
 
     await sequelize.query(`
-  CREATE TABLE Products (
+  CREATE TABLE IF NOT EXISTS Products (
     id INT NOT NULL AUTO_INCREMENT,
     Name VARCHAR(255) NOT NULL,
     UUID VARCHAR(255) NOT NULL,
@@ -27,7 +27,7 @@ async function migrateTables() {
 `)
 
     await sequelize.query(`
-  CREATE TABLE ConsumptionData (
+  CREATE TABLE IF NOT EXISTS ConsumptionData (
     id INT NOT NULL AUTO_INCREMENT,
     EletricCurrent FLOAT NOT NULL,
     Power FLOAT NOT NULL,
@@ -46,20 +46,24 @@ async function migrateTables() {
 }
 
 async function dropTables() {
-  await sequelize.authenticate()
+  try {
+    await sequelize.authenticate()
 
-  console.info('Dropping Tables...')
-  await sequelize.query(`
+    console.info('Dropping Tables...')
+    await sequelize.query(`
       DROP TABLE ConsumptionData;
     `)
 
-  await sequelize.query(`
+    await sequelize.query(`
       DROP TABLE Products;
     `)
 
-  await sequelize.query(`
+    await sequelize.query(`
       DROP TABLE Users;
     `)
+  } catch (error) {
+    console.error(error)
+  }
 
   console.info('Tables dropped!')
 }

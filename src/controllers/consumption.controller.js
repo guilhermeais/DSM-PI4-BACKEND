@@ -40,7 +40,7 @@ const searchConsumptions = async (req, h) => {
   )
 
   if (consumptions.length > 0) {
-    const consumptionFormat = await createPayloadResponse(consumptions)
+    const consumptionFormat = createPayloadResponse(consumptions)
     return h.response(consumptionFormat).code(200)
   }
   return h.response({ msg: 'Sem registro para esse produto' }).code(404)
@@ -55,12 +55,12 @@ function createPayloadResponse(consumptions) {
     consumptionDetail.push({
       EletricCurrent: consumptions[i].EletricCurrent,
       Power: consumptions[i].Power,
-      Consumption: consumptions[i].Consumption,
+      Kwm: consumptions[i].Kwm,
       Amount: consumptions[i].Amount,
     })
 
     consumptionResponse.push({
-      Datetime: consumptions[i].ConsumptionDate,
+      Datetime: consumptions[i].KwmDate,
       ConsumptionDetail: consumptionDetail[i],
     })
   }

@@ -28,7 +28,7 @@ const searchConsumptions = async (
 ) => {
   try {
     const sql = `
-        SELECT EletricCurrent, Consumption, Power, ConsumptionDate, Amount
+        SELECT EletricCurrent, Kwm, Power, KwmDate
             FROM  ConsumptionData WHERE idProduct = :product`
 
     const res = await db.query(sql, {

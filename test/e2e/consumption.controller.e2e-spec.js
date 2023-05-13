@@ -1,4 +1,12 @@
-import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, test } from 'vitest'
+import {
+  afterAll,
+  afterEach,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  test,
+} from 'vitest'
 import supertest from 'supertest'
 import { dropTables, migrateTables } from '../../src/database/migrate-database'
 import { faker } from '@faker-js/faker'
@@ -8,6 +16,68 @@ import MockDate from 'mockdate'
 import moment from 'moment'
 
 describe('Consumption E2E Suite', () => {
+  async function makeUser() {
+    const user = {
+      name: faker.name.firstName(),
+      email: faker.internet.email(),
+      password: faker.internet.password(),
+    }
+
+    const [id] = await sequelize.query(
+      `
+      INSERT INTO Users (Name, Login, Password) VALUES
+       ('${user.name}', '${user.email}', '${user.password}');`
+    )
+    user.id = id
+    return user
+  }
+
+  async function makeProduct(user) {
+    const product = {
+      name: 'Product 1',
+      uuid: faker.datatype.uuid(),
+      userId: user.id,
+    }
+
+    const [id] = await sequelize.query(
+      `
+      INSERT INTO Products (Name, UUID, idUser) VALUES
+        ('${product.name}', '${product.uuid}', '${product.userId}');`
+    )
+    product.id = id
+
+    return product
+  }
+
+  async function makeConsumption(product) {
+    const consumption = {
+      current: faker.datatype.number(),
+      power: faker.datatype.number(),
+      kwm: faker.datatype.number(),
+      kwmDate: faker.date.recent(),
+      idProduct: product.id,
+    }
+
+    const [id] = await sequelize.query(
+      `
+      INSERT INTO ConsumptionData (EletricCurrent, Power, KwmDate, Kwm, idProduct) VALUES
+        (:current, :power, :kwmDate, :kwm, :idProduct);
+      `,
+      {
+        replacements: {
+          current: consumption.current,
+          power: consumption.power,
+          kwmDate: consumption.kwmDate,
+          kwm: consumption.kwm,
+          idProduct: consumption.idProduct,
+        },
+        type: sequelize.QueryTypes.INSERT,
+      }
+    )
+    consumption.id = id
+
+    return consumption
+  }
   describe('POST /consumption', () => {
     const actualDate = new Date()
     beforeAll(() => {
@@ -21,42 +91,9 @@ describe('Consumption E2E Suite', () => {
       await dropTables()
     })
 
-    afterAll(() => {
+    afterAll(async () => {
       MockDate.reset()
     })
-
-    async function makeUser() {
-      const user = {
-        name: faker.name.firstName(),
-        email: faker.internet.email(),
-        password: faker.internet.password(),
-      }
-
-      const [id] = await sequelize.query(
-        `
-        INSERT INTO Users (Name, Login, Password) VALUES
-         ('${user.name}', '${user.email}', '${user.password}');`
-      )
-      user.id = id
-      return user
-    }
-
-    async function makeProduct(user) {
-      const product = {
-        name: 'Product 1',
-        uuid: faker.datatype.uuid(),
-        userId: user.id,
-      }
-
-      const [id] = await sequelize.query(
-        `
-        INSERT INTO Products (Name, UUID, idUser) VALUES
-          ('${product.name}', '${product.uuid}', '${product.userId}');`
-      )
-      product.id = id
-
-      return product
-    }
 
     test('should save the consumption converted on the database', async () => {
       const user = await makeUser()
@@ -78,7 +115,7 @@ describe('Consumption E2E Suite', () => {
         `SELECT * FROM ConsumptionData;`
       )
 
-      const expectedKwm = 0.001042 
+      const expectedKwm = 0.001042
 
       const expectedConsumption = {
         id: expect.any(Number),
@@ -91,9 +128,7 @@ describe('Consumption E2E Suite', () => {
 
       expect({
         ...dbConsumption,
-        KwmDate: moment(dbConsumption.KwmDate).format(
-          'yyyy-MM-dd HH:mm:ss'
-        ),
+        KwmDate: moment(dbConsumption.KwmDate).format('yyyy-MM-dd HH:mm:ss'),
       }).toEqual(expectedConsumption)
     })
   })

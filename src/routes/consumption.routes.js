@@ -14,7 +14,7 @@ const routesConsumption = [
     },
     {
         method: "GET",
-        path: '/consumption/{product}',
+        path: '/products/{product}/consumption',
         config:{
             description: 'Search Consumptions',
             handler: ConsumptionController.searchConsumptions,
