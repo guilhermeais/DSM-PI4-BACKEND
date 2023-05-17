@@ -11,6 +11,7 @@
     "posttest:e2e": "docker compose down",
     "test:unit": "npm t -- --config vitest.config.unit.js",
     "start": "cross-env TZ=America/Sao_Paulo node --experimental-specifier-resolution=node src/index.js",
+    "start:v1": "cross-env TZ=America/Sao_Paulo node --experimental-specifier-resolution=node src/v1/config/index.js",
     "migrate:up": "node src/database/migrate-database.js up",
     "migrate:down": "node src/database/migrate-database.js down"
   },
@@ -28,6 +29,7 @@
     "hapi-cors": "^1.0.3",
     "joi": "^17.9.1",
     "jsonwebtoken": "^9.0.0",
+    "klaw-sync": "^6.0.0",
     "moment": "^2.29.4",
     "mysql2": "^3.2.3",
     "nodemon": "^2.0.22",
