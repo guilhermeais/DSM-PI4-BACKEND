@@ -8,12 +8,12 @@ import {
   test,
 } from 'vitest'
 import supertest from 'supertest'
-import { dropTables, migrateTables } from '../../src/database/migrate-database'
 import { faker } from '@faker-js/faker'
-import sequelize from '../../src/database/db'
 import MockDate from 'mockdate'
 import moment from 'moment'
-import { server } from '../../src/v1/config/server'
+import { server } from '../../../src/v1/config/server'
+import sequelize from '../../../src/v1/config/database/sequelize-db'
+import { dropTables, migrateTables } from '../../../src/v1/config/database/migrate-database'
 
 describe('Consumption E2E Suite', () => {
   async function makeUser() {

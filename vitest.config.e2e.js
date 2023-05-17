@@ -3,6 +3,6 @@ import vitestConfig from './vitest.config'
 
 export default mergeConfig(vitestConfig, defineConfig({
   test: {
-    include: ['test/e2e/*.e2e-spec.js']
+    include: ['test/**/*.e2e-spec.js']
   }
 })) 

@@ -10,7 +10,7 @@
     "test:e2e": "npm t -- --config vitest.config.e2e.js",
     "posttest:e2e": "docker compose down",
     "test:unit": "npm t -- --config vitest.config.unit.js",
-    "start": "cross-env TZ=America/Sao_Paulo node --experimental-specifier-resolution=node src/index.js",
+    "start": "cross-env TZ=America/Sao_Paulo node --experimental-specifier-resolution=node src/legacy/index.js",
     "start:v1": "cross-env TZ=America/Sao_Paulo node --experimental-specifier-resolution=node src/v1/config/index.js",
     "migrate:up": "node src/database/migrate-database.js up",
     "migrate:down": "node src/database/migrate-database.js down"

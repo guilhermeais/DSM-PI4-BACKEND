@@ -1,4 +1,4 @@
-import { Consumption } from '../../src/v1/products/domain/entities/consumption.entity'
+import { Consumption } from '../../../src/v1/products/domain/entities/consumption.entity'
 import { faker } from '@faker-js/faker'
 
 export function mockConsumption(modification = {}) {

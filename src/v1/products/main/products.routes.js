@@ -8,6 +8,9 @@ export const productRoutes = [
      * @todo passar a rota para /products/{id}/consumption, porém, precisaremos mudar no IOT @ABBorges1
      */
     path: '/consumption',
+    config: {
+      description: 'Register Consumption',
+    },
     handler: async (request, h) => {
       try {
         const { current: eletricCurrent, power, idProduct } = request.payload

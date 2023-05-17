@@ -1,13 +1,16 @@
-import { server } from './server';
+import { server } from './server'
+import blipp from 'blipp'
 
-export const start = async () => {
+const start = async () => {
   try {
-    await server.start();
-    console.log(`Server started ${server.info.uri}`);
+    await server.register(blipp)
+
+    await server.start()
+    console.log(`Server started ${server.info.uri}`)
   } catch (error) {
-    console.error(error);
-    process.exit(1);
+    console.error(error)
+    process.exit(1)
   }
 }
 
-start();
+start()
