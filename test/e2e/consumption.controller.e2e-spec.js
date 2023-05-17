@@ -11,9 +11,9 @@ import supertest from 'supertest'
 import { dropTables, migrateTables } from '../../src/database/migrate-database'
 import { faker } from '@faker-js/faker'
 import sequelize from '../../src/database/db'
-import server from '../../src/server'
 import MockDate from 'mockdate'
 import moment from 'moment'
+import { server } from '../../src/v1/config/server'
 
 describe('Consumption E2E Suite', () => {
   async function makeUser() {

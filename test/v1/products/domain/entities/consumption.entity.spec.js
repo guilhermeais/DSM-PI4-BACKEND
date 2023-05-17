@@ -9,6 +9,6 @@ describe('Consumption', () => {
       productId: 1,
     })
 
-    expect(consumption.kwm).toBe(0.0010416666666666667)
+    expect(consumption.kwm).toBe(0.001042)
   })
 })
