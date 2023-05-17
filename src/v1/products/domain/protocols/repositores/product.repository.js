@@ -1,7 +1,7 @@
 import { NotImplementedError } from '../../../../shared/errors/not-implemented-error'
 import { Consumption } from '../../entities/consumption.entity'
 
-class ProductRepository {
+export class ProductRepository {
   /**
    *
    * @param {string} id
@@ -19,5 +19,3 @@ class ProductRepository {
     throw NotImplementedError(this.constructor.name, this.registerConsumption.name)
   }
 }
-
-export { ProductRepository }
