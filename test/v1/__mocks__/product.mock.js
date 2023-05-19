@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker'
-import { Product } from '../../src/v1/products/domain/entities/product.entity.js'
+import { Product } from '../../../src/v1/products/domain/entities/product.entity'
 
 export function mockProduct(modification = {}) {
   return Product.create({
