@@ -12,10 +12,45 @@ export class ProductRepository {
   }
 
   /**
-   * 
-   * @param {Consumption} consumption 
+   *
+   * @param {Consumption} consumption
    */
   async registerConsumption(consumption) {
-    throw NotImplementedError(this.constructor.name, this.registerConsumption.name)
+    throw NotImplementedError(
+      this.constructor.name,
+      this.registerConsumption.name
+    )
+  }
+
+  /**
+   *
+   * @returns {Promise<
+   * [{
+   *  kw: number,
+   *  hour: number
+   * }]
+   * >}
+   */
+  async getDayConsumptions({ date, productId }) {
+    throw NotImplementedError(
+      this.constructor.name,
+      this.getDayConsumptions.name
+    )
+  }
+
+  /**
+   *
+   * @returns {Promise<
+   * [{
+   *  kw: number,
+   *  dayOfMonth: number,
+   * }]
+   * >}
+   */
+  async getMonthConsumptions({ date, productId }) {
+    throw NotImplementedError(
+      this.constructor.name,
+      this.getMonthConsumptions.name
+    )
   }
 }

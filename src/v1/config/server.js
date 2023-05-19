@@ -17,7 +17,6 @@ const server = hapi.server({
     },
   },
 })
-productRoutes
 server.route([...productRoutes, ...legacyProductRoutes, ...legacyRoutesAuth, ...legacyRoutesUser])
 
 export { server }
