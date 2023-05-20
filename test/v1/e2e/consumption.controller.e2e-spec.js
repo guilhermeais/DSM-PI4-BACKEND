@@ -49,35 +49,7 @@ describe('Consumption E2E Suite', () => {
     return product
   }
 
-  async function makeConsumption(product) {
-    const consumption = {
-      current: faker.datatype.number(),
-      power: faker.datatype.number(),
-      kwm: faker.datatype.number(),
-      kwmDate: faker.date.recent(),
-      idProduct: product.id,
-    }
-
-    const [id] = await sequelize.query(
-      `
-      INSERT INTO ConsumptionData (EletricCurrent, Power, KwmDate, Kwm, idProduct) VALUES
-        (:current, :power, :kwmDate, :kwm, :idProduct);
-      `,
-      {
-        replacements: {
-          current: consumption.current,
-          power: consumption.power,
-          kwmDate: consumption.kwmDate,
-          kwm: consumption.kwm,
-          idProduct: consumption.idProduct,
-        },
-        type: sequelize.QueryTypes.INSERT,
-      }
-    )
-    consumption.id = id
-
-    return consumption
-  }
+ 
   describe('POST /consumption', () => {
     const actualDate = new Date()
     beforeAll(() => {
