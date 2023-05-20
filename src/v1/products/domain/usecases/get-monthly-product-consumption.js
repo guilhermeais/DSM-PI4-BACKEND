@@ -6,11 +6,15 @@ export class GetMonthlyProductConsumption {
   }
 
   async execute({ date, productId }) {
-    const daysOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0)
+    const daysOfMonth = new Date(
+      date.getFullYear(),
+      date.getMonth() + 1,
+      0
+    ).getDate()
     const monthlyConsumption =
       await this.productRepository.getMonthConsumptions(date, productId)
 
-    return Array.from({ length: daysOfMonth.getDate() }, (_, i) => {
+    return Array.from({ length: daysOfMonth }, (_, i) => {
       const day = i + 1
       const consumption = monthlyConsumption.find(
         ({ dayOfMonth }) => dayOfMonth === day
