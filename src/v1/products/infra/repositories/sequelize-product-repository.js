@@ -11,16 +11,18 @@ export class SequelizeProductRepository extends ProductRepository {
     WHERE P.id = :id
     `
 
-    const [dbUser] = await sequelizeDb.query(sql, {
+    const [dbProduct] = await sequelizeDb.query(sql, {
       type: QueryTypes.SELECT,
       replacements: { id },
     })
 
+    if (!dbProduct) return null
+
     return Product.create({
-      id: dbUser.id,
-      name: dbUser.Name,
-      uuid: dbUser.UUID,
-      userId: dbUser.idUser,
+      id: dbProduct.id,
+      name: dbProduct.Name,
+      uuid: dbProduct.UUID,
+      userId: dbProduct.idUser,
     })
   }
 
@@ -47,5 +49,48 @@ export class SequelizeProductRepository extends ProductRepository {
     })
 
     return { id }
+  }
+
+  async getDayConsumptions({ date, productId }) {
+    const sql = `
+      SELECT SUM(Kwm) as kw, HOUR(KwmDate) as hour
+      FROM ConsumptionData
+      WHERE 
+        idProduct = :productId 
+        AND DAY(KwmDate) = DAY(:kwmDate)
+        AND MONTH(KwmDate) = MONTH(:kwmDate)
+        AND YEAR(KwmDate) = YEAR(:kwmDate)
+      GROUP BY HOUR(KwmDate)
+    `
+
+    const [results] = await sequelizeDb.query(sql, {
+      replacements: {
+        productId,
+        kwmDate: date,
+      },
+    })
+
+    return results
+  }
+
+  async getMonthConsumptions({ date, productId }) {
+    const sql = `
+      SELECT SUM(Kwm) as kw, DAY(KwmDate) as dayOfMonth
+      FROM ConsumptionData
+      WHERE 
+        idProduct = :productId
+        AND YEAR(KwmDate) = YEAR(:kwmDate)
+        AND MONTH(KwmDate) = MONTH(:kwmDate)
+      GROUP BY DAY(KwmDate);
+    `
+
+    const [results] = await sequelizeDb.query(sql, {
+      replacements: {
+        productId,
+        kwmDate: date,
+      },
+    })
+
+    return results
   }
 }
