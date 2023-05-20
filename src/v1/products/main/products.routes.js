@@ -1,5 +1,5 @@
 import { hapiErrorHandler } from '../../config/http/error-handler'
-import { makeRegisterConsumption } from './factories/register-consumption.factory'
+import { makeProductController } from './factories/application/controllers/product.controller.factory'
 
 export const productRoutes = [
   {
@@ -11,14 +11,17 @@ export const productRoutes = [
     config: {
       description: 'Register Consumption',
     },
+    /**
+     *
+     * @param {import('@hapi/hapi').Request} request
+     * @param {import('@hapi/hapi').ResponseToolkit} h
+     * @returns
+     */
     handler: async (request, h) => {
       try {
-        const { current: eletricCurrent, power, idProduct } = request.payload
-        const registerConsumption = makeRegisterConsumption()
-        const consumption = await registerConsumption.execute({
-          eletricCurrent,
-          power,
-          productId: idProduct,
+        const productController = makeProductController()
+        const consumption = await productController.registerConsumption({
+          ...request.payload,
         })
         return h.response(consumption).code(201)
       } catch (error) {

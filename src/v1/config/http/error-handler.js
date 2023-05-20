@@ -9,7 +9,7 @@ import { BaseError } from '../../shared/errors/base-error'
 export function hapiErrorHandler(error, reply) {
   console.error(error)
 
-  const statusCode = error.statusCode || 500
+  const statusCode = error?.statusCode || 500
   if (error?.isOperational) {
     return reply
       .response({
@@ -24,5 +24,5 @@ export function hapiErrorHandler(error, reply) {
     statusCode,
     error: 'Internal Server Error',
     message: 'Internal Server Error',
-  })
+  }).code(statusCode)
 }

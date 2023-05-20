@@ -1,1 +1,2 @@
-export * from './register-consumption.factory'
+export * from './domain';
+export * from './application/controllers';
