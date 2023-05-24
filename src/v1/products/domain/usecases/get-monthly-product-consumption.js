@@ -1,11 +1,21 @@
+import { DistributorGateway } from '../protocols/gateways/distributor.gateway'
 import { ProductRepository } from '../protocols/repositores/product.repository'
 
 export class GetMonthlyProductConsumption {
-  constructor({ productRepository = new ProductRepository() }) {
+  constructor({
+    productRepository = new ProductRepository(),
+    distributorGateway = new DistributorGateway(),
+  }) {
     this.productRepository = productRepository
+    this.distributorGateway = distributorGateway
   }
 
-  async execute({ date, productId }) {
+  async execute({ date, productId, distributorId }) {
+    const price = await this.distributorGateway.getDistributorPrice(
+      distributorId,
+      date
+    )
+
     const daysOfMonth = new Date(
       date.getFullYear(),
       date.getMonth() + 1,
@@ -20,7 +30,13 @@ export class GetMonthlyProductConsumption {
         ({ dayOfMonth }) => dayOfMonth === day
       )
 
-      return consumption?.kw || 0
+      const consumptionInKw = consumption?.kw || 0
+      const consumptionInMoney = consumptionInKw * price
+
+      return {
+        consumptionInKw,
+        consumptionInMoney,
+      }
     })
   }
 }
