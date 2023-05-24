@@ -5,27 +5,49 @@ import { GetMonthlyProductConsumption } from '../../../../src/v1/products/domain
 describe('GetMonthlyProductConsumption', () => {
   let sut
   let productRepository
+  const mockedPrice = 0.9
+  let distributorGateway
+  const mockedMonthlyConsumptions = [
+    { kw: 10, dayOfMonth: 1 },
+    { kw: 12, dayOfMonth: 3 },
+  ]
 
   beforeEach(() => {
-    let productRepository = mock({
-      getMonthConsumptions: vitest.fn().mockResolvedValue([
-        { kw: 10, dayOfMonth: 1 },
-        { kw: 12, dayOfMonth: 3 },
-      ]),
+    distributorGateway = mock({
+      getDistributorPrice: vitest.fn().mockResolvedValue(mockedPrice),
+    })
+
+    productRepository = mock({
+      getMonthConsumptions: vitest.fn().mockResolvedValue(mockedMonthlyConsumptions),
     })
     sut = new GetMonthlyProductConsumption({
       productRepository,
+      distributorGateway,
     })
   })
 
   test('should return an array of 30 if the month has 30 days', async () => {
     const aprilDate = new Date(2021, 3, 1)
 
-    const result = await sut.execute({ date: aprilDate, productId: 'any_id' })
-    const expectedResult = Array.from({ length: 30 }, _ => 0)
+    const result = await sut.execute({
+      date: aprilDate,
+      productId: 'any_id',
+      distributorId: 'any_id',
+    })
+    const expectedResult = Array.from({ length: 30 }, (_, i) => {
+      const day = i + 1
+      const consumption = mockedMonthlyConsumptions.find(
+        ({ dayOfMonth }) => dayOfMonth === day
+      )
 
-    expectedResult[0] = 10
-    expectedResult[2] = 12
+      const consumptionInKw = consumption?.kw || 0
+      const consumptionInMoney = consumptionInKw * mockedPrice
+
+      return {
+        consumptionInKw,
+        consumptionInMoney,
+      }
+    })
 
     expect(result).toEqual(expectedResult)
   })
@@ -36,12 +58,23 @@ describe('GetMonthlyProductConsumption', () => {
     const result = await sut.execute({
       date: januaryDate,
       productId: 'any_id',
+      distributorId: 'any_id',
     })
 
-    const expectedResult = Array.from({ length: 31 }, _ => 0)
+    const expectedResult = Array.from({ length: 31 }, (_, i) => {
+      const day = i + 1
+      const consumption = mockedMonthlyConsumptions.find(
+        ({ dayOfMonth }) => dayOfMonth === day
+      )
 
-    expectedResult[0] = 10
-    expectedResult[2] = 12
+      const consumptionInKw = consumption?.kw || 0
+      const consumptionInMoney = consumptionInKw * mockedPrice
+
+      return {
+        consumptionInKw,
+        consumptionInMoney,
+      }
+    })
 
     expect(result).toEqual(expectedResult)
   })
@@ -52,12 +85,23 @@ describe('GetMonthlyProductConsumption', () => {
     const result = await sut.execute({
       date: februaryDate,
       productId: 'any_id',
+      distributorId: 'any_id',
     })
 
-    const expectedResult = Array.from({ length: 28 }, _ => 0)
+    const expectedResult = Array.from({ length: 28 }, (_, i) => {
+      const day = i + 1
+      const consumption = mockedMonthlyConsumptions.find(
+        ({ dayOfMonth }) => dayOfMonth === day
+      )
 
-    expectedResult[0] = 10
-    expectedResult[2] = 12
+      const consumptionInKw = consumption?.kw || 0
+      const consumptionInMoney = consumptionInKw * mockedPrice
+
+      return {
+        consumptionInKw,
+        consumptionInMoney,
+      }
+    })
 
     expect(result).toEqual(expectedResult)
   })
@@ -68,12 +112,23 @@ describe('GetMonthlyProductConsumption', () => {
     const result = await sut.execute({
       date: februaryDate,
       productId: 'any_id',
+      distributorId: 'any_id',
     })
 
-    const expectedResult = Array.from({ length: 29 }, _ => 0)
+    const expectedResult = Array.from({ length: 29 }, (_, i) => {
+      const day = i + 1
+      const consumption = mockedMonthlyConsumptions.find(
+        ({ dayOfMonth }) => dayOfMonth === day
+      )
 
-    expectedResult[0] = 10
-    expectedResult[2] = 12
+      const consumptionInKw = consumption?.kw || 0
+      const consumptionInMoney = consumptionInKw * mockedPrice
+
+      return {
+        consumptionInKw,
+        consumptionInMoney,
+      }
+    })
 
     expect(result).toEqual(expectedResult)
   })

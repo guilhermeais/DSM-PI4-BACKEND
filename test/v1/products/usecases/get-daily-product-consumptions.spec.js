@@ -5,6 +5,8 @@ import { describe, vitest, beforeEach, test, expect } from 'vitest'
 describe('GetDailyProductConsumptions', () => {
   let sut
   let productRepository
+  let distributorGateway
+  const mockedPrice = 0.9
 
   beforeEach(() => {
     productRepository = mock({
@@ -14,8 +16,13 @@ describe('GetDailyProductConsumptions', () => {
       ]),
     })
 
+    distributorGateway = mock({
+      getDistributorPrice: vitest.fn().mockResolvedValue(mockedPrice),
+    })
+
     sut = new GetDailyProductConsumptions({
       productRepository,
+      distributorGateway,
     })
   })
 
@@ -23,11 +30,19 @@ describe('GetDailyProductConsumptions', () => {
     const response = await sut.execute({
       date: new Date(),
       productId: 'any_id',
+      distributorId: 'any_id',
     })
 
-    const expectedResult = [
-      10, 0, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    ]
+    const expectedResult = {
+      consumptionsInKm: [
+        10, 0, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0,
+      ],
+      consumptionsInMoney: [
+        9, 0, 10.8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0,
+      ],
+    }
 
     expect(response).toEqual(expectedResult)
   })
