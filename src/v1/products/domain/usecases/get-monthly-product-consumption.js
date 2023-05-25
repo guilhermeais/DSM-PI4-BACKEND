@@ -21,10 +21,15 @@ export class GetMonthlyProductConsumption {
       date.getMonth() + 1,
       0
     ).getDate()
+
+    const consumptions = {
+      consumptionsInKw: [],
+      consumptionsInMoney: [],
+    }
     const monthlyConsumption =
       await this.productRepository.getMonthConsumptions(date, productId)
 
-    return Array.from({ length: daysOfMonth }, (_, i) => {
+    for (let i = 0; i < daysOfMonth; i++) {
       const day = i + 1
       const consumption = monthlyConsumption.find(
         ({ dayOfMonth }) => dayOfMonth === day
@@ -33,10 +38,10 @@ export class GetMonthlyProductConsumption {
       const consumptionInKw = consumption?.kw || 0
       const consumptionInMoney = consumptionInKw * price
 
-      return {
-        consumptionInKw,
-        consumptionInMoney,
-      }
-    })
+      consumptions.consumptionsInKw.push(consumptionInKw)
+      consumptions.consumptionsInMoney.push(consumptionInMoney)
+    }
+
+    return consumptions
   }
 }

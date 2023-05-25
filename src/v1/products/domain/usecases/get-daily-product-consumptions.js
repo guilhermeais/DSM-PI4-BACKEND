@@ -21,16 +21,21 @@ export class GetDailyProductConsumptions {
       productId,
     })
 
-    return Array.from({ length: 24 }, (_, i) => {
+    const consumptions = {
+      consumptionsInKw: [],
+      consumptionsInMoney: []
+    }
+
+    for (let i = 0; i < 24; i++) {
       const hour = i + 1
       const consumption = consumptionsByHour.find(c => c.hour === hour)
       const consumptionInKw = consumption?.kw || 0
       const consumptionInMoney = consumptionInKw * price
 
-      return {
-        consumptionInKw,
-        consumptionInMoney
-      }
-    })
+      consumptions.consumptionsInKw.push(consumptionInKw)
+      consumptions.consumptionsInMoney.push(consumptionInMoney)
+    }
+
+    return consumptions 
   }
 }
