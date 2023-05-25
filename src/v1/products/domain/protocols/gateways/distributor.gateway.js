@@ -6,10 +6,10 @@ export class DistributorGateway {
    * @param {Date} date
    * @returns {Promise<number>}
    */
-  getDistributorPrice(distributorId, date) {
+  getKwmDistributorPrice(distributorId, date) {
     throw new NotImplementedError(
       this.constructor.name,
-      this.getDistributorPrice.name
+      this.getKwmDistributorPrice.name
     )
   }
 }
