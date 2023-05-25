@@ -18,7 +18,9 @@ describe('GetMonthlyProductConsumption', () => {
     })
 
     productRepository = mock({
-      getMonthConsumptions: vitest.fn().mockResolvedValue(mockedMonthlyConsumptions),
+      getMonthConsumptions: vitest
+        .fn()
+        .mockResolvedValue(mockedMonthlyConsumptions),
     })
     sut = new GetMonthlyProductConsumption({
       productRepository,
@@ -34,20 +36,17 @@ describe('GetMonthlyProductConsumption', () => {
       productId: 'any_id',
       distributorId: 'any_id',
     })
-    const expectedResult = Array.from({ length: 30 }, (_, i) => {
-      const day = i + 1
-      const consumption = mockedMonthlyConsumptions.find(
-        ({ dayOfMonth }) => dayOfMonth === day
-      )
 
-      const consumptionInKw = consumption?.kw || 0
-      const consumptionInMoney = consumptionInKw * mockedPrice
+    const expectedResult = {
+      consumptionsInKw: Array.from({ length: 30 }, () => 0),
+      consumptionsInMoney: Array.from({ length: 30 }, () => 0),
+    }
 
-      return {
-        consumptionInKw,
-        consumptionInMoney,
-      }
-    })
+    expectedResult.consumptionsInKw[0] = 10
+    expectedResult.consumptionsInKw[2] = 12
+
+    expectedResult.consumptionsInMoney[0] = 10 * mockedPrice
+    expectedResult.consumptionsInMoney[2] = 12 * mockedPrice
 
     expect(result).toEqual(expectedResult)
   })
@@ -61,20 +60,16 @@ describe('GetMonthlyProductConsumption', () => {
       distributorId: 'any_id',
     })
 
-    const expectedResult = Array.from({ length: 31 }, (_, i) => {
-      const day = i + 1
-      const consumption = mockedMonthlyConsumptions.find(
-        ({ dayOfMonth }) => dayOfMonth === day
-      )
+    const expectedResult = {
+      consumptionsInKw: Array.from({ length: 31 }, () => 0),
+      consumptionsInMoney: Array.from({ length: 31 }, () => 0),
+    }
 
-      const consumptionInKw = consumption?.kw || 0
-      const consumptionInMoney = consumptionInKw * mockedPrice
+    expectedResult.consumptionsInKw[0] = 10
+    expectedResult.consumptionsInKw[2] = 12
 
-      return {
-        consumptionInKw,
-        consumptionInMoney,
-      }
-    })
+    expectedResult.consumptionsInMoney[0] = 10 * mockedPrice
+    expectedResult.consumptionsInMoney[2] = 12 * mockedPrice
 
     expect(result).toEqual(expectedResult)
   })
@@ -88,20 +83,16 @@ describe('GetMonthlyProductConsumption', () => {
       distributorId: 'any_id',
     })
 
-    const expectedResult = Array.from({ length: 28 }, (_, i) => {
-      const day = i + 1
-      const consumption = mockedMonthlyConsumptions.find(
-        ({ dayOfMonth }) => dayOfMonth === day
-      )
+    const expectedResult = {
+      consumptionsInKw: Array.from({ length: 28 }, () => 0),
+      consumptionsInMoney: Array.from({ length: 28 }, () => 0),
+    }
 
-      const consumptionInKw = consumption?.kw || 0
-      const consumptionInMoney = consumptionInKw * mockedPrice
+    expectedResult.consumptionsInKw[0] = 10
+    expectedResult.consumptionsInKw[2] = 12
 
-      return {
-        consumptionInKw,
-        consumptionInMoney,
-      }
-    })
+    expectedResult.consumptionsInMoney[0] = 10 * mockedPrice
+    expectedResult.consumptionsInMoney[2] = 12 * mockedPrice
 
     expect(result).toEqual(expectedResult)
   })
@@ -114,21 +105,16 @@ describe('GetMonthlyProductConsumption', () => {
       productId: 'any_id',
       distributorId: 'any_id',
     })
+    const expectedResult = {
+      consumptionsInKw: Array.from({ length: 29 }, () => 0),
+      consumptionsInMoney: Array.from({ length: 29 }, () => 0),
+    }
 
-    const expectedResult = Array.from({ length: 29 }, (_, i) => {
-      const day = i + 1
-      const consumption = mockedMonthlyConsumptions.find(
-        ({ dayOfMonth }) => dayOfMonth === day
-      )
+    expectedResult.consumptionsInKw[0] = 10
+    expectedResult.consumptionsInKw[2] = 12
 
-      const consumptionInKw = consumption?.kw || 0
-      const consumptionInMoney = consumptionInKw * mockedPrice
-
-      return {
-        consumptionInKw,
-        consumptionInMoney,
-      }
-    })
+    expectedResult.consumptionsInMoney[0] = 10 * mockedPrice
+    expectedResult.consumptionsInMoney[2] = 12 * mockedPrice
 
     expect(result).toEqual(expectedResult)
   })

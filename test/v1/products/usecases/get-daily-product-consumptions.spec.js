@@ -34,7 +34,7 @@ describe('GetDailyProductConsumptions', () => {
     })
 
     const expectedResult = {
-      consumptionsInKm: [
+      consumptionsInKw: [
         10, 0, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0,
       ],
