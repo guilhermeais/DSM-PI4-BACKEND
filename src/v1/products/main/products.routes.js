@@ -31,7 +31,7 @@ export const productRoutes = [
   },
   {
     method: 'GET',
-    path: '/products/{id}/consumption',
+    path: '/products/{id}/consumptions',
     config: {
       description: 'Get Consumptions',
     },

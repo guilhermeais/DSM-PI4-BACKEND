@@ -1,3 +1,4 @@
+import moment from 'moment'
 import { InvalidParamError } from '../../../shared/errors/invalid-param-error'
 import {
   RegisterConsumption,
@@ -53,7 +54,7 @@ export class ProductController {
    */
   async getConsumptions({ type, date, productId, distributorId }) {
     let consumptions = null
-
+    const formattedDate = moment(date, 'YYYY-MM-DD HH:mm:ss').toDate()
     const supportedTypes = Object.values(GET_CONSUMPTIONS_TYPES)
     const isNonSupportedType = !supportedTypes.includes(type)
 
@@ -66,22 +67,22 @@ export class ProductController {
       )
     }
     if (type === GET_CONSUMPTIONS_TYPES.DAILY) {
-      consumptions = await this.#getDailyConsumptions.execute({
-        date,
+      consumptions = await this.#getMonthlyConsumptions.execute({
+        date: formattedDate,
         productId,
         distributorId,
       })
     }
 
     if (type === GET_CONSUMPTIONS_TYPES.HOURLY) {
-      consumptions = await this.#getMonthlyConsumptions.execute({
-        date,
+      consumptions = await this.#getDailyConsumptions.execute({
+        date: formattedDate,
         productId,
         distributorId,
       })
     }
 
-    return this.#mountConsumptionDetails(consumptions)
+    return this.#mountConsumptionDetails.execute(consumptions)
   }
 }
 

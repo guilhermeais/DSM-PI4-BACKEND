@@ -27,7 +27,7 @@ export class GetMonthlyProductConsumption {
       consumptionsInMoney: [],
     }
     const monthlyConsumption =
-      await this.productRepository.getMonthConsumptions(date, productId)
+      await this.productRepository.getMonthConsumptions({date, productId})
 
     for (let i = 0; i < daysOfMonth; i++) {
       const day = i + 1
