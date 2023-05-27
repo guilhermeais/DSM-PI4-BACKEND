@@ -1,14 +1,39 @@
-import { RegisterConsumption } from '../../domain/usecases/register-consumption';
+import { InvalidParamError } from '../../../shared/errors/invalid-param-error'
+import {
+  RegisterConsumption,
+  GetDailyProductConsumptions,
+  GetMonthlyProductConsumption,
+  MountConsumptionDetails,
+} from '../../domain/usecases'
 
 export class ProductController {
   /**
    * @type {RegisterConsumption}
    */
-  #registerConsumption;
+  #registerConsumption
+  /**
+   * @type {GetDailyProductConsumptions}
+   */
+  #getDailyConsumptions
+  /**
+   * @type {GetMonthlyProductConsumption}
+   */
+  #getMonthlyConsumptions
+  /**
+   * @type {MountConsumptionDetails}
+   */
+  #mountConsumptionDetails
+
   constructor({
-    registerConsumption
+    registerConsumption,
+    getDailyConsumptions,
+    getMonthlyConsumptions,
+    mountConsumptionDetails,
   }) {
     this.#registerConsumption = registerConsumption
+    this.#getDailyConsumptions = getDailyConsumptions
+    this.#getMonthlyConsumptions = getMonthlyConsumptions
+    this.#mountConsumptionDetails = mountConsumptionDetails
   }
 
   async registerConsumption(data) {
@@ -21,4 +46,46 @@ export class ProductController {
 
     return consumption
   }
+
+  /**
+   *
+   * @param {{type: typeof GET_CONSUMPTIONS_TYPES, date: Date, productId: string, distributorId: string}} param0
+   */
+  async getConsumptions({ type, date, productId, distributorId }) {
+    let consumptions = null
+
+    const supportedTypes = Object.values(GET_CONSUMPTIONS_TYPES)
+    const isNonSupportedType = !supportedTypes.includes(type)
+
+    if (isNonSupportedType) {
+      throw new InvalidParamError(
+        'type',
+        `O tipo ${type} não é suportado, os únicos suportados são: ${supportedTypes.join(
+          ', '
+        )}`
+      )
+    }
+    if (type === GET_CONSUMPTIONS_TYPES.DAILY) {
+      consumptions = await this.#getDailyConsumptions.execute({
+        date,
+        productId,
+        distributorId,
+      })
+    }
+
+    if (type === GET_CONSUMPTIONS_TYPES.HOURLY) {
+      consumptions = await this.#getMonthlyConsumptions.execute({
+        date,
+        productId,
+        distributorId,
+      })
+    }
+
+    return this.#mountConsumptionDetails(consumptions)
+  }
+}
+
+export const GET_CONSUMPTIONS_TYPES = {
+  DAILY: 'daily',
+  HOURLY: 'hourly',
 }

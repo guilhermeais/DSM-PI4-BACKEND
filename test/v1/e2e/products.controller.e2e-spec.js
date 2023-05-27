@@ -15,7 +15,7 @@ import { server } from '../../../src/v1/config/server'
 import sequelize from '../../../src/v1/config/database/sequelize-db'
 import { dropTables, migrateTables } from '../../../src/v1/config/database/migrate-database'
 
-describe('Consumption E2E Suite', () => {
+describe('Products E2E Suite', () => {
   async function makeUser() {
     const user = {
       name: faker.name.firstName(),

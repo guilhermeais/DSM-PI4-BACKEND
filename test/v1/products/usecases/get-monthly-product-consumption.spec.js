@@ -14,7 +14,7 @@ describe('GetMonthlyProductConsumption', () => {
 
   beforeEach(() => {
     distributorGateway = mock({
-      getDistributorPrice: vitest.fn().mockResolvedValue(mockedPrice),
+      getKwmDistributorPrice: vitest.fn().mockResolvedValue(mockedPrice),
     })
 
     productRepository = mock({

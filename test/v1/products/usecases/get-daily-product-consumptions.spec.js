@@ -17,7 +17,7 @@ describe('GetDailyProductConsumptions', () => {
     })
 
     distributorGateway = mock({
-      getDistributorPrice: vitest.fn().mockResolvedValue(mockedPrice),
+      getKwmDistributorPrice: vitest.fn().mockResolvedValue(mockedPrice),
     })
 
     sut = new GetDailyProductConsumptions({

@@ -11,7 +11,7 @@ export class GetDailyProductConsumptions {
   }
 
   async execute({ date, productId, distributorId }) {
-    const price = await this.distributorGateway.getDistributorPrice(
+    const price = await this.distributorGateway.getKwmDistributorPrice(
       distributorId,
       date
     )
