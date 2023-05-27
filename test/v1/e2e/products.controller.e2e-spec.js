@@ -228,6 +228,7 @@ describe('Products E2E Suite', () => {
       expect(response.body).toEqual({
         consumptionsInKw: {
           average: 0.4166666666666667,
+          max: 4,
           data: [
             0, 4, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             2,
@@ -236,6 +237,7 @@ describe('Products E2E Suite', () => {
         },
         consumptionsInMoney: {
           average: 0.375,
+          max: 3.6,
           data: [
             0, 3.6, 0, 1.8, 0, 1.8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 1.8,
@@ -300,6 +302,7 @@ describe('Products E2E Suite', () => {
       expect(response.body).toEqual({
         consumptionsInKw: {
           average: 0.3225806451612903,
+          max: 4,
           data: [
             dayOneConsumption.kwm + secondDayOneConsumption.kwm,
             0,
@@ -337,6 +340,7 @@ describe('Products E2E Suite', () => {
         },
         consumptionsInMoney: {
           average: 0.2903225806451613,
+          max: 3.6,
           data: [
             3.6, 0, 1.8, 0, 1.8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 1.8,

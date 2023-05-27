@@ -36,20 +36,25 @@ export class MountConsumptionDetails {
 
     const averageInKw = totalConsumptionsInKwm / params.consumptionsInKw.length
     const modeInKw = MathHelper.getMode(params.consumptionsInKw)
+    const maxKwmConsumption = Math.max(...params.consumptionsInKw)
 
-    const averageInMoney = totalConsumptionsInMoney / params.consumptionsInMoney.length
+    const averageInMoney =
+      totalConsumptionsInMoney / params.consumptionsInMoney.length
     const modeInMoney = MathHelper.getMode(params.consumptionsInMoney)
+    const maxMoneyConsumption = Math.max(...params.consumptionsInMoney)
 
     return {
       consumptionsInKw: {
         average: averageInKw,
         mode: modeInKw,
         data: params.consumptionsInKw,
+        max: maxKwmConsumption,
       },
       consumptionsInMoney: {
         average: averageInMoney,
         mode: modeInMoney,
         data: params.consumptionsInMoney,
+        max: maxMoneyConsumption,
       },
     }
   }
