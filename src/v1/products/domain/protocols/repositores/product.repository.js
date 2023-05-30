@@ -1,5 +1,6 @@
 import { NotImplementedError } from '../../../../shared/errors/not-implemented-error'
 import { Consumption } from '../../entities/consumption.entity'
+import { Product } from '../../entities/product.entity'
 
 export class ProductRepository {
   /**
@@ -8,7 +9,18 @@ export class ProductRepository {
    * @returns {Promise<Product>}
    */
   async findById(id) {
-    throw NotImplementedError(this.constructor.name, this.findById.name)
+    throw new NotImplementedError(this.constructor.name, this.findById.name)
+  }
+
+  /**
+   * @param {{userId: string}} params
+   * @returns {Promise<Product[]>}
+   */
+  async findUserProducts(params) {
+    throw new NotImplementedError(
+      this.constructor.name,
+      this.findUserProducts.name
+    )
   }
 
   /**
@@ -32,7 +44,7 @@ export class ProductRepository {
    * >}
    */
   async getDayConsumptions({ date, productId }) {
-    throw NotImplementedError(
+    throw new NotImplementedError(
       this.constructor.name,
       this.getDayConsumptions.name
     )
@@ -48,7 +60,7 @@ export class ProductRepository {
    * >}
    */
   async getMonthConsumptions({ date, productId }) {
-    throw NotImplementedError(
+    throw new NotImplementedError(
       this.constructor.name,
       this.getMonthConsumptions.name
     )
