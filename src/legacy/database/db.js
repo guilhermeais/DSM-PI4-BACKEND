@@ -13,11 +13,11 @@ const config = {
   port: env.DB_PORT,
   timezone: env.TZ,
   dialectOptions: {
-    ssl: env.DB_CERT && {
+    ssl: env.DB_CERT ? {
       require: true,
       rejectUnauthorized: false, // use this if you don't have a CA or self-signed certificate
       ca: env.DB_CERT,
-    },
+    } : null,
   },
 }
 

@@ -4,7 +4,7 @@ const env = {
 
   PORT: process.env.PORT || 3000,
   HOST: process.env.HOST || 'localhost',
-  
+
   DB_HOST: process.env.DB_HOST || 'localhost',
   DB_USER: process.env.DB_USER || 'test',
   DB_PASSWORD: process.env.DB_PASSWORD || 'test',
@@ -14,6 +14,8 @@ const env = {
   DB_CERT: process.env.DB_CERT,
 
   TZ: process.env.TZ || 'America/Sao_Paulo',
+
+  JWT_SECRET: process.env.JWT_SECRET || 'secret'
 }
 
 export { env }

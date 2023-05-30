@@ -6,20 +6,20 @@ const routesUser = [
     {
         method: "POST",
         path: '/user',
-        config:{
+        config: {
             auth: false,
             description: 'Register User',
             handler: UserControler.create,
-            validate: UserSchema.create
+            validate: UserSchema.create,
         }
     },
     {
         method: "GET",
         path: '/user/{id}',
-        config:{
+        config: {
             description: 'Infos User',
             handler: UserControler.searchOneUser,
-            validate: UserSchema.search
+            validate: UserSchema.search,
         }
     },
 ]

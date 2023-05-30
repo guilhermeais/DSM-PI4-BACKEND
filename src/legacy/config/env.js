@@ -12,6 +12,8 @@ const env = {
   DB_CERT: process.env.DB_CERT,
 
   TZ: process.env.TZ || 'America/Sao_Paulo',
+
+  JWT_SECRET: process.env.JWT_SECRET || 'secret'
 }
 
 export { env }
