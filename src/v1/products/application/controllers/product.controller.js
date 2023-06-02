@@ -5,6 +5,7 @@ import {
   GetDailyProductConsumptions,
   GetMonthlyProductConsumption,
   MountConsumptionDetails,
+  GetUserProducts,
 } from '../../domain/usecases'
 
 export class ProductController {
@@ -24,17 +25,27 @@ export class ProductController {
    * @type {MountConsumptionDetails}
    */
   #mountConsumptionDetails
+  /**
+   * @type {GetUserProducts}
+   */
+  #getUserProducts
 
   constructor({
     registerConsumption,
     getDailyConsumptions,
     getMonthlyConsumptions,
     mountConsumptionDetails,
+    getUserProducts,
   }) {
     this.#registerConsumption = registerConsumption
     this.#getDailyConsumptions = getDailyConsumptions
     this.#getMonthlyConsumptions = getMonthlyConsumptions
     this.#mountConsumptionDetails = mountConsumptionDetails
+    this.#getUserProducts = getUserProducts
+  }
+
+  async getUserProducts({ userId }) {
+    return this.#getUserProducts.execute({ userId })
   }
 
   async registerConsumption(data) {

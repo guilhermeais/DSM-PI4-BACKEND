@@ -23,6 +23,6 @@ export function hapiErrorHandler(error, reply) {
   return reply.response({
     statusCode,
     error: 'Internal Server Error',
-    message: 'Internal Server Error',
+    message: error.message,
   }).code(statusCode)
 }

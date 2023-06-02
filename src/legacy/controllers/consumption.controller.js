@@ -15,7 +15,7 @@ const convertConsumtion = async (req, h) => {
 }
 
 function convertPowerToKwm(powerPerMinute) {
-  const kWm = Number((powerPerMinute / 60) / 1000).toFixed(6)
+  const kWm = Number(powerPerMinute / 60 / 1000).toFixed(6)
 
   return kWm
 }

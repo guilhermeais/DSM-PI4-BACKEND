@@ -31,6 +31,29 @@ export const productRoutes = [
   },
   {
     method: 'GET',
+    path: '/products',
+    config: {
+      description: 'Get User Products',
+    },
+    /**
+     *
+     * @param {import('@hapi/hapi').Request} request
+     * @param {import('@hapi/hapi').ResponseToolkit} h
+     * @returns
+     */
+    handler: async (request, h) => {
+      try {
+        const products = await productController.getUserProducts({
+          userId: request.auth.credentials.user.id,
+        })
+        return h.response(products).code(200)
+      } catch (error) {
+        return hapiErrorHandler(error, h)
+      }
+    },
+  },
+  {
+    method: 'GET',
     path: '/products/{id}/consumptions',
     config: {
       description: 'Get Consumptions',
@@ -47,7 +70,7 @@ export const productRoutes = [
           type: request.query.type,
           date: request.query.date,
           distributorId: request.query.distributorId,
-          productId: request.params.id
+          productId: request.params.id,
         })
         return h.response(consumptions).code(200)
       } catch (error) {

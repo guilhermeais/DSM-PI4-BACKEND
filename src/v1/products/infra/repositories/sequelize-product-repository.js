@@ -93,4 +93,23 @@ export class SequelizeProductRepository extends ProductRepository {
 
     return results
   }
+
+  async findUserProducts({ userId }) {
+    const sql = `SELECT id, Name, UUID, idUser FROM Products where idUser = :userId`
+
+    const [results] = await sequelizeDb.query(sql, {
+      replacements: {
+        userId,
+      },
+    })
+
+    return results.map(product => {
+      return new Product({
+        id: product.id,
+        name: product.Name,
+        userId: product.idUser,
+        uuid: product.UUID,
+      })
+    })
+  }
 }

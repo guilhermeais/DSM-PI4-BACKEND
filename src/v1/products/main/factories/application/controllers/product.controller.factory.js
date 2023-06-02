@@ -3,7 +3,8 @@ import {
   makeGetDailyConsumptions,
   makeGetMonthlyProductConsumptions,
   makeRegisterConsumption,
-  makeMountConsumptionDetails
+  makeMountConsumptionDetails,
+  makeGetUserProducts,
 } from '../../domain/usecases'
 
 export function makeProductController() {
@@ -12,5 +13,6 @@ export function makeProductController() {
     getDailyConsumptions: makeGetDailyConsumptions(),
     getMonthlyConsumptions: makeGetMonthlyProductConsumptions(),
     mountConsumptionDetails: makeMountConsumptionDetails(),
+    getUserProducts: makeGetUserProducts(),
   })
 }

@@ -17,6 +17,7 @@ const server = hapi.server({
     },
   },
 })
+
 server.route([
   ...legacyProductRoutes,
   ...legacyRoutesAuth,
