@@ -3,13 +3,16 @@ import { EntityNotFoundError } from '../errors/entity-not-found-error'
 import { ProductRepository } from '../protocols/repositores/product.repository'
 
 export class RegisterConsumption {
-  constructor({
-    productRepository = new ProductRepository(),
-  }) {
+  constructor({ productRepository = new ProductRepository() }) {
     this.productRepository = productRepository
   }
 
   async execute({ eletricCurrent, power, productId }) {
+    console.log('RegisterConsumption[execute]', `called with: `, {
+      eletricCurrent,
+      productId,
+      power,
+    })
     const product = await this.productRepository.findById(productId)
 
     if (!product) {

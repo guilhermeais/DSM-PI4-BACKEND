@@ -6,6 +6,7 @@ import { Consumption } from '../../domain/entities/consumption.entity'
 
 export class SequelizeProductRepository extends ProductRepository {
   async findById(id) {
+    console.log('SequelizeProductRepository[findById]', `called with product id: ${id}`)
     const sql = `
     SELECT P.Name, P.id, P.UUID, P.idUser FROM Products as P 
     WHERE P.id = :id

@@ -2,8 +2,8 @@ import 'dotenv/config';
 const env = {
   NODE_ENV: process.env.NODE_ENV || 'development',
 
-  PORT: process.env.PORT || 3000,
-  HOST: process.env.HOST || 'localhost',
+  PORT: process.env.PORT || 8080,
+  HOST: process.env.HOST || '0.0.0.0',
 
   DB_HOST: process.env.DB_HOST || 'localhost',
   DB_USER: process.env.DB_USER || 'test',

@@ -10,6 +10,7 @@ export const productRoutes = [
      */
     path: '/consumption',
     config: {
+      auth: false,
       description: 'Register Consumption',
     },
     /**
