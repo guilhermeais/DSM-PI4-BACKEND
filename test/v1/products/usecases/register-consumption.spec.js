@@ -9,6 +9,7 @@ import { faker } from '@faker-js/faker'
 describe('RegisterConsumption', () => {
   let sut
   let productRepository
+  let productPubSub
 
   let mockedConsumption
   let mockedProduct
@@ -22,11 +23,16 @@ describe('RegisterConsumption', () => {
 
     productRepository = mock({
       findById: vitest.fn().mockResolvedValue(mockedProduct),
-      registerConsumption: vitest.fn().mockResolvedValue(mockedConsumption)
+      registerConsumption: vitest.fn().mockResolvedValue(mockedConsumption),
+    })
+
+    productPubSub = mock({
+      publishConsumption: vitest.fn(),
     })
 
     sut = new RegisterConsumption({
       productRepository,
+      productPubSub,
     })
   })
 
@@ -62,11 +68,21 @@ describe('RegisterConsumption', () => {
       })
     )
     expect(productRepository.registerConsumption).toHaveBeenCalledTimes(1)
+    expect(productPubSub.publishConsumption).toHaveBeenCalledTimes(1)
+    expect(productPubSub.publishConsumption).toHaveBeenCalledWith(
+      params.productId,
+      expect.objectContaining({
+        eletricCurrent: params.eletricCurrent,
+        power: params.power,
+        kwmDate: expect.any(Date),
+        kwm: expect.any(Number),
+        productId: params.productId,
+      })
+    )
 
     expect(result.id).toEqual(mockedConsumption.id)
     expect(result.eletricCurrent).toEqual(params.eletricCurrent)
     expect(result.power).toEqual(params.power)
     expect(result.productId).toEqual(params.productId)
-
   })
 })
