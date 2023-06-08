@@ -13,4 +13,11 @@ export class ProductPubSubGateway {
       this.publishConsumption.name
     )
   }
+
+  async listenToConsumptions(productId, handler = () => void 0) {
+    throw new NotImplementedError(
+      this.constructor.name,
+      this.publishConsumption.name
+    )
+  }
 }

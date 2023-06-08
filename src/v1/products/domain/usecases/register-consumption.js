@@ -1,6 +1,6 @@
 import { Consumption } from '../entities/consumption.entity'
 import { EntityNotFoundError } from '../errors/entity-not-found-error'
-import { ProductPubSubGateway } from '../protocols/gateways/product-pub-sub.gateway'
+import { ProductPubSubGateway } from '../protocols/gateways/product-pubsub.gateway'
 import { ProductRepository } from '../protocols/repositores/product.repository'
 
 export class RegisterConsumption {
