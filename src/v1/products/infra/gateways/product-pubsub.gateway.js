@@ -1,6 +1,5 @@
-import { EventEmitter } from 'mysql2/typings/mysql/lib/Connection'
 import { ProductPubSubGateway } from '../../domain/protocols/gateways/product-pubsub.gateway'
-
+import { EventEmitter } from 'events'
 export class ProductPubSubEventEmitter extends ProductPubSubGateway {
   #eventEmitter = new EventEmitter()
   static #instance = null

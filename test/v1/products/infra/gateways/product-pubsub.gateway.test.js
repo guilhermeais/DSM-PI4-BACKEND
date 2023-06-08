@@ -1,6 +1,7 @@
 import { ProductPubSubEventEmitter } from '../../../../../src/v1/products/infra/gateways/product-pubsub.gateway'
 import { faker } from '@faker-js/faker'
 import { mockConsumption } from '../../../__mocks__/consumption.mock'
+import { describe, test, beforeEach, expect } from 'vitest'
 
 describe('ProductPubSubEventEmitter', () => {
   /**

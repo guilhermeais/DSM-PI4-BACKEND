@@ -19,8 +19,6 @@ import {
 } from '../../../src/v1/config/database/migrate-database'
 import { QueryTypes } from 'sequelize'
 import { GET_CONSUMPTIONS_TYPES } from '../../../src/v1/products/application/controllers/product.controller'
-import * as jwt from 'jsonwebtoken'
-import { env } from '../../../src/v1/config/env'
 
 describe('Products E2E Suite', () => {
   async function makeUser() {
