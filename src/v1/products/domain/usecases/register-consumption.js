@@ -1,10 +1,15 @@
 import { Consumption } from '../entities/consumption.entity'
 import { EntityNotFoundError } from '../errors/entity-not-found-error'
+import { ProductPubSubGateway } from '../protocols/gateways/product-pub-sub.gateway'
 import { ProductRepository } from '../protocols/repositores/product.repository'
 
 export class RegisterConsumption {
-  constructor({ productRepository = new ProductRepository() }) {
+  constructor({
+    productRepository = new ProductRepository(),
+    productPubSub = new ProductPubSubGateway(),
+  }) {
     this.productRepository = productRepository
+    this.productPubSub = productPubSub
   }
 
   async execute({ eletricCurrent, power, productId }) {
@@ -28,6 +33,8 @@ export class RegisterConsumption {
 
     const { id } = await this.productRepository.registerConsumption(consumption)
     consumption.id = id
+
+    await this.productPubSub.publishConsumption(productId, consumption)
     return consumption
   }
 }
