@@ -9,7 +9,6 @@ import legacyRoutesUser from '../../legacy/routes/user.routes'
 const server = hapi.server({
   port: env.PORT,
   host: env.HOST,
-
   routes: {
     cors: {
       origin: ['*'],

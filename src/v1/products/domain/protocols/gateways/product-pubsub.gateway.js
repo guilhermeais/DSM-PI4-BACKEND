@@ -14,10 +14,20 @@ export class ProductPubSubGateway {
     )
   }
 
-  async listenToConsumptions(productId, handler = () => void 0) {
+  async listenToConsumptions(
+    { productId, subscriberId },
+    handler = () => void 0
+  ) {
     throw new NotImplementedError(
       this.constructor.name,
       this.publishConsumption.name
+    )
+  }
+
+  async unsubcribe({ productId, subscriberId }) {
+    throw new NotImplementedError(
+      this.constructor.name,
+      this.unsubcribe.name
     )
   }
 }

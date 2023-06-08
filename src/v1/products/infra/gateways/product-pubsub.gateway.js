@@ -1,32 +1,69 @@
+import { Consumption } from '../../domain/entities/consumption.entity'
 import { ProductPubSubGateway } from '../../domain/protocols/gateways/product-pubsub.gateway'
-import { EventEmitter } from 'events'
 export class ProductPubSubEventEmitter extends ProductPubSubGateway {
-  #eventEmitter = new EventEmitter()
-  static #instance = null
+  /**
+   * @type {ProductPubSubEventEmitter}
+   */
+  static instance = null
+  #listeners = new Map()
 
   static create() {
-    if (!ProductPubSubEventEmitter.#instance) {
-      ProductPubSubEventEmitter.#instance = new ProductPubSubEventEmitter()
+    if (!ProductPubSubEventEmitter.instance) {
+      ProductPubSubEventEmitter.instance = new ProductPubSubEventEmitter()
     }
 
-    return ProductPubSubEventEmitter.#instance
+    return ProductPubSubEventEmitter.instance
   }
 
   publishConsumption(productId, consumption) {
-    this.#eventEmitter.emit(
-      ProductPubSubEventEmitter.getConsumptionEventName(productId),
-      consumption
+    console.log(
+      `ProductPubSubEventEmitter[listenToConsumptions] new consumption for product id ${productId}`
     )
+
+    for (const [id, handler] of this.#listeners.entries()) {
+      console.log(id)
+      const [subId, listenerProductId] = id.split(' ')
+      if (listenerProductId.toString() !== productId.toString()) {
+        return
+      }
+
+      try {
+        console.log(
+          `ProductPubSubEventEmitter[publishConsumption] emitting consumption of product id ${productId} to subs ${subId}`,
+          consumption
+        )
+        handler(consumption)
+      } catch (error) {
+        console.error(
+          `ProductPubSubEventEmitter[publishConsumption] error on ${id}`
+        )
+      }
+    }
   }
 
-  listenToConsumptions(productId, handler) {
-    this.#eventEmitter.on(
-      ProductPubSubEventEmitter.getConsumptionEventName(productId),
-      handler
+  /**
+   *
+   * @param {{productId: number | string, subscriberId: number | string}} ids
+   * @param {(consumption: Consumption) => void} handler
+   */
+  listenToConsumptions({ productId, subscriberId }, handler) {
+    console.log(
+      `ProductPubSubEventEmitter[listenToConsumptions] add listener ${subscriberId} for product id ${productId} consumptions`
     )
+
+    this.#listeners.set(`${subscriberId} ${productId}`, handler)
   }
 
-  static getConsumptionEventName(productId) {
-    return `products/${productId}:new-consumption`
+  unsubcribe({ subscriberId }) {
+    console.log(this.#listeners)
+    console.log('unsubscribed', subscriberId)
+    for (const [id] of this.#listeners.entries()) {
+      const [subId, productId] = id.split(' ')
+      if (subscriberId === subId) {
+        this.#listeners.delete(`${subId} ${productId}`)
+      }
+    }
+    console.log(this.#listeners)
+
   }
 }

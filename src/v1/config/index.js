@@ -3,9 +3,11 @@ import blipp from 'blipp'
 import Jwt from '@hapi/jwt'
 import cors from 'hapi-cors'
 import { env } from './env'
+import { makeSocketServer } from './socket-server'
 
 const start = async () => {
   try {
+    const io = makeSocketServer(server.listener)
     await server.register(Jwt)
 
     await server.register({ plugin: cors })
@@ -28,7 +30,6 @@ const start = async () => {
         }
       },
     })
-
     server.auth.default('jwt')
 
     await server.register(blipp)
