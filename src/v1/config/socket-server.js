@@ -9,7 +9,11 @@ export const SOCKET_EVENTS = {
 }
 
 export function makeSocketServer(httpServer) {
-  const io = new Server(httpServer)
+  const io = new Server(httpServer, {
+    cors: {
+      origin: '*'
+    }
+  })
   const productPubSub = ProductPubSubEventEmitter.create()
 
   io.of('/products').on('connection', clientSocket => {
