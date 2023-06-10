@@ -10,13 +10,16 @@ describe('RegisterConsumption', () => {
   let sut
   let productRepository
   let productPubSub
+  let distributorGateway
 
   let mockedConsumption
   let mockedProduct
+  let mockedKwmDistributorPrice
 
   beforeEach(() => {
     mockedConsumption = mockConsumption()
     mockedConsumption.id = faker.datatype.number()
+    mockedKwmDistributorPrice = faker.datatype.float()
 
     mockedProduct = mockProduct()
     mockedProduct.id = faker.datatype.number()
@@ -30,9 +33,16 @@ describe('RegisterConsumption', () => {
       publishConsumption: vitest.fn(),
     })
 
+    distributorGateway = mock({
+      getKwmDistributorPrice: vitest
+        .fn()
+        .mockResolvedValue(mockedKwmDistributorPrice),
+    })
+
     sut = new RegisterConsumption({
       productRepository,
       productPubSub,
+      distributorGateway,
     })
   })
 
@@ -76,6 +86,7 @@ describe('RegisterConsumption', () => {
         power: params.power,
         kwmDate: expect.any(Date),
         kwm: expect.any(Number),
+        kwmInMoney: expect.any(Number),
         productId: params.productId,
       })
     )

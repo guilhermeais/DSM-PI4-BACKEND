@@ -11,7 +11,7 @@ export class GetLastHalfHourConsumptions {
   }
 
   async execute({ productId, distributorId }) {
-    const price = this.distributorGateway.getKwmDistributorPrice(
+    const price = await this.distributorGateway.getKwmDistributorPrice(
       distributorId,
       new Date()
     )
