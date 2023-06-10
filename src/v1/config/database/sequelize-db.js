@@ -29,7 +29,7 @@ const testingConfig = {
   password: 'test',
   database: 'test',
   dialect: 'mysql',
-  timezone: env.TZ,
+  timezone: env.TZ ,
   port: '3306',
 }
 

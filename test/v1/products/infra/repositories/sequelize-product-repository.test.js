@@ -207,8 +207,8 @@ describe('SequelizeProductRepository', () => {
         },
         {
           hour: 5,
-          kw: fiveHourAmConsumption.kwm
-        }
+          kw: fiveHourAmConsumption.kwm,
+        },
       ])
     })
   })
@@ -260,9 +260,41 @@ describe('SequelizeProductRepository', () => {
         },
         {
           dayOfMonth: 5,
-          kw: dayFiveConsumption.kwm
-        }
+          kw: dayFiveConsumption.kwm,
+        },
       ])
+    })
+  })
+
+  describe('getLastHourConsumptions()', () => {
+    test('should get last hour consumptions', async () => {
+      const user = await makeUser()
+      const product = await makeProduct(user)
+      const actualDate = moment(
+        '2023/01/01 01:01:00',
+        'YYYY-MM-DD HH:mm:ss'
+      ).toDate()
+      MockDate.set(actualDate)
+      console.log('acualDate', actualDate)
+      const oneHourBefore = moment(actualDate).subtract(1, 'hour').toDate()
+      console.log('oneHourBefore', oneHourBefore)
+      const [oneHourBeforeConsumption, otherOneHourBeforeConsumption] =
+        await Promise.all([
+          makeConsumption(product, {
+            kwmDate: oneHourBefore,
+          }),
+          makeConsumption(product, {
+            kwmDate: oneHourBefore,
+          }),
+        ])
+
+      const result = await sut.getLastHourConsumptions({
+        productId: product.id,
+      })
+
+      expect(result.length).toBe(2)
+      expect(result[0].id).toEqual(oneHourBeforeConsumption.id)
+      expect(result[1].id).toEqual(otherOneHourBeforeConsumption.id)
     })
   })
 })

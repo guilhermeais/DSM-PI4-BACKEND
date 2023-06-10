@@ -1,5 +1,6 @@
 import { Server } from 'socket.io'
 import { ProductPubSubEventEmitter } from '../products/infra/gateways/product-pubsub.gateway'
+import { makeGetLastHourConsumptions } from '../products/main/factories/domain/usecases/get-last-hour-consumptions.factory'
 
 export const SOCKET_EVENTS = {
   products: {
@@ -11,9 +12,10 @@ export const SOCKET_EVENTS = {
 export function makeSocketServer(httpServer) {
   const io = new Server(httpServer, {
     cors: {
-      origin: '*'
-    }
+      origin: '*',
+    },
   })
+  const getLastHourConsumptions = makeGetLastHourConsumptions()
   const productPubSub = ProductPubSubEventEmitter.create()
 
   io.of('/products').on('connection', clientSocket => {
@@ -21,14 +23,12 @@ export function makeSocketServer(httpServer) {
 
     clientSocket.on(
       SOCKET_EVENTS.products.SUBSCRIBE_CONSUMPTIONS,
-      ({ productId }) => {
+      async ({ productId }, callback = () => {}) => {
         console.log('Subscribing', clientSocket.id, 'to', productId)
         if (!productId) {
-          clientSocket.emit('exception', {
+          return callback({
             message: 'Missing productId!',
           })
-
-          return
         }
 
         productPubSub.listenToConsumptions(
@@ -40,6 +40,16 @@ export function makeSocketServer(httpServer) {
             )
           }
         )
+
+        try {
+          const lastConsumptions = await getLastHourConsumptions.execute({
+            productId,
+          })
+          return callback(lastConsumptions)
+        } catch (error) {
+          console.error('Failed to get last hour consumptions', error)
+          return callback([])
+        }
       }
     )
 

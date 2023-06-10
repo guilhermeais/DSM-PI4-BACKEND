@@ -6,7 +6,10 @@ import { Consumption } from '../../domain/entities/consumption.entity'
 
 export class SequelizeProductRepository extends ProductRepository {
   async findById(id) {
-    console.log('SequelizeProductRepository[findById]', `called with product id: ${id}`)
+    console.log(
+      'SequelizeProductRepository[findById]',
+      `called with product id: ${id}`
+    )
     const sql = `
     SELECT P.Name, P.id, P.UUID, P.idUser FROM Products as P 
     WHERE P.id = :id
@@ -112,5 +115,27 @@ export class SequelizeProductRepository extends ProductRepository {
         uuid: product.UUID,
       })
     })
+  }
+
+  async getLastHourConsumptions({ productId }) {
+    const now = new Date()
+    const sql = `SELECT * from ConsumptionData where idProduct = :productId and KwmDate >= DATE_SUB(:now, INTERVAL 1 HOUR) ORDER BY KwmDate DESC`
+
+    const [results] = await sequelizeDb.query(sql, {
+      replacements: {
+        productId,
+        now
+      },
+    })
+
+    return results.map(consumptionDb =>
+      Consumption.create({
+        eletricCurrent: consumptionDb.EletricCurrent,
+        id: consumptionDb.id,
+        power: consumptionDb.Power,
+        productId: consumptionDb.idProduct,
+        kwmDate: consumptionDb.KwmDate,
+      })
+    )
   }
 }

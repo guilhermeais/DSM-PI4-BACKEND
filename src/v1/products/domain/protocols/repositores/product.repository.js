@@ -36,6 +36,17 @@ export class ProductRepository {
 
   /**
    *
+   * @returns {Promise<Consumption[]>}
+   */
+  async getLastHourConsumptions({ productId }) {
+    throw NotImplementedError(
+      this.constructor.name,
+      this.getLastHourConsumptions.name
+    )
+  }
+
+  /**
+   *
    * @returns {Promise<
    * [{
    *  kw: number,
