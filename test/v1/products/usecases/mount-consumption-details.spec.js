@@ -47,4 +47,21 @@ describe('MountConsumptinoDetails', () => {
     expect(kwModes).toEqual(expectedMoneyModes)
     expect(moneyModes).toEqual(expectedKwmModes)
   })
+
+  test('should return the correct standard deviation', () => {
+    const consumptions = {
+      consumptionsInKw: [2, 4, 6, 8, 10],
+      consumptionsInMoney: [2, 4, 6, 8, 10],
+    }
+    const {
+      consumptionsInKw: { standardDeviation: kwStandardDeviation },
+      consumptionsInMoney: { standardDeviation: moneyStandartDeviation },
+    } = sut.execute(consumptions)
+
+    const expectedMoneyStandardDeviation = 2.83
+    const expectedKwmStandardDeviation = 2.83
+
+    expect(kwStandardDeviation).toEqual(expectedKwmStandardDeviation)
+    expect(moneyStandartDeviation).toEqual(expectedMoneyStandardDeviation)
+  })
 })

@@ -233,6 +233,7 @@ describe('Products E2E Suite', () => {
             2,
           ],
           mode: [0],
+          standardDeviation: 1
         },
         consumptionsInMoney: {
           average: 0.375,
@@ -242,6 +243,7 @@ describe('Products E2E Suite', () => {
             0, 0, 1.8,
           ],
           mode: [0],
+          standardDeviation: 0.9
         },
       })
     })
@@ -336,6 +338,7 @@ describe('Products E2E Suite', () => {
             endOfMonthConsumption.kwm,
           ],
           mode: [0],
+          standardDeviation: 0.89,
         },
         consumptionsInMoney: {
           average: 0.2903225806451613,
@@ -345,6 +348,7 @@ describe('Products E2E Suite', () => {
             0, 0, 0, 0, 0, 0, 0, 0, 0, 1.8,
           ],
           mode: [0],
+          standardDeviation: 0.8,
         },
       })
     })
