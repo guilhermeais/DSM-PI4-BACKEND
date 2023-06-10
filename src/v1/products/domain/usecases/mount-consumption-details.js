@@ -11,11 +11,13 @@ export class MountConsumptionDetails {
    *    data: number[],
    *    average: number,
    *    mode: number[]
+   * standardDeviation: number
    *  },
    * consumptionsInMoney: {
    *    data: number[],
    *    average: number
    *    mode: number[]
+   * standardDeviation: number
    *  }
    * }}
    */
@@ -36,11 +38,17 @@ export class MountConsumptionDetails {
 
     const averageInKw = totalConsumptionsInKwm / params.consumptionsInKw.length
     const modeInKw = MathHelper.getMode(params.consumptionsInKw)
+    const kwStandardDeviation = MathHelper.getStandardDeviation(
+      params.consumptionsInKw
+    )
     const maxKwmConsumption = Math.max(...params.consumptionsInKw)
 
     const averageInMoney =
       totalConsumptionsInMoney / params.consumptionsInMoney.length
     const modeInMoney = MathHelper.getMode(params.consumptionsInMoney)
+    const moneyStandardDeviation = MathHelper.getStandardDeviation(
+      params.consumptionsInMoney
+    )
     const maxMoneyConsumption = Math.max(...params.consumptionsInMoney)
 
     return {
@@ -49,12 +57,14 @@ export class MountConsumptionDetails {
         mode: modeInKw,
         data: params.consumptionsInKw,
         max: maxKwmConsumption,
+        standardDeviation: kwStandardDeviation,
       },
       consumptionsInMoney: {
         average: averageInMoney,
         mode: modeInMoney,
         data: params.consumptionsInMoney,
         max: maxMoneyConsumption,
+        standardDeviation: moneyStandardDeviation,
       },
     }
   }
