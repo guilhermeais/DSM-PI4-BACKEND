@@ -1,4 +1,4 @@
-import 'dotenv/config';
+import 'dotenv/config'
 const env = {
   NODE_ENV: process.env.NODE_ENV || 'development',
 
@@ -15,7 +15,9 @@ const env = {
 
   TZ: process.env.TZ || 'America/Sao_Paulo',
 
-  JWT_SECRET: process.env.JWT_SECRET || 'secret'
+  JWT_SECRET: process.env.JWT_SECRET || 'secret',
+
+  MOCKED_KWM_PRICE: process.env.MOCKED_KWM_PRICE || 0.9,
 }
 
 export { env }

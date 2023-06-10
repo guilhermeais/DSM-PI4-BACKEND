@@ -38,10 +38,10 @@ export class ProductRepository {
    *
    * @returns {Promise<Consumption[]>}
    */
-  async getLastHourConsumptions({ productId }) {
+  async getLast30MinConsumptions({ productId }) {
     throw NotImplementedError(
       this.constructor.name,
-      this.getLastHourConsumptions.name
+      this.getLast30MinConsumptions.name
     )
   }
 

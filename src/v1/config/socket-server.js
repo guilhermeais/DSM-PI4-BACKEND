@@ -1,6 +1,6 @@
 import { Server } from 'socket.io'
 import { ProductPubSubEventEmitter } from '../products/infra/gateways/product-pubsub.gateway'
-import { makeGetLastHourConsumptions } from '../products/main/factories/domain/usecases/get-last-hour-consumptions.factory'
+import { makeGetLastHalfHourConsumptions } from '../products/main/factories/domain/usecases/get-last-hour-consumptions.factory'
 
 export const SOCKET_EVENTS = {
   products: {
@@ -15,7 +15,7 @@ export function makeSocketServer(httpServer) {
       origin: '*',
     },
   })
-  const getLastHourConsumptions = makeGetLastHourConsumptions()
+  const getLastHourConsumptions = makeGetLastHalfHourConsumptions()
   const productPubSub = ProductPubSubEventEmitter.create()
 
   io.of('/products').on('connection', clientSocket => {

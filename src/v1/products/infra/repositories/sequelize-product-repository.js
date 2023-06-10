@@ -117,9 +117,9 @@ export class SequelizeProductRepository extends ProductRepository {
     })
   }
 
-  async getLastHourConsumptions({ productId }) {
+  async getLast30MinConsumptions({ productId }) {
     const now = new Date()
-    const sql = `SELECT * from ConsumptionData where idProduct = :productId and KwmDate >= DATE_SUB(:now, INTERVAL 1 HOUR) ORDER BY KwmDate DESC`
+    const sql = `SELECT * from ConsumptionData where idProduct = :productId and KwmDate >= DATE_SUB(:now, INTERVAL 30 MINUTE) ORDER BY KwmDate DESC`
 
     const [results] = await sequelizeDb.query(sql, {
       replacements: {

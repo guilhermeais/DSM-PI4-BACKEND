@@ -266,7 +266,7 @@ describe('SequelizeProductRepository', () => {
     })
   })
 
-  describe('getLastHourConsumptions()', () => {
+  describe('getLast30MinConsumptions()', () => {
     test('should get last hour consumptions', async () => {
       const user = await makeUser()
       const product = await makeProduct(user)
@@ -276,7 +276,7 @@ describe('SequelizeProductRepository', () => {
       ).toDate()
       MockDate.set(actualDate)
       console.log('acualDate', actualDate)
-      const oneHourBefore = moment(actualDate).subtract(1, 'hour').toDate()
+      const oneHourBefore = moment(actualDate).subtract(30, 'minute').toDate()
       console.log('oneHourBefore', oneHourBefore)
       const [oneHourBeforeConsumption, otherOneHourBeforeConsumption] =
         await Promise.all([
@@ -288,7 +288,7 @@ describe('SequelizeProductRepository', () => {
           }),
         ])
 
-      const result = await sut.getLastHourConsumptions({
+      const result = await sut.getLast30MinConsumptions({
         productId: product.id,
       })
 
