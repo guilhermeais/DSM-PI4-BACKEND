@@ -19,4 +19,26 @@ export class MathHelper {
 
     return modes
   }
+
+  static getAverage(numbers = []) {
+    const sum = numbers.reduce(
+      (accumulator, element) => accumulator + element,
+      0
+    )
+    return sum / numbers.length
+  }
+
+  static getStandardDeviation(numbers = []) {
+    const average = MathHelper.getAverage(numbers);
+    
+    const squaredDifferencesSum = numbers.reduce((accumulator, element) => {
+      const difference = element - average;
+      return accumulator + Math.pow(difference, 2);
+    }, 0);
+    
+    const variance = squaredDifferencesSum / numbers.length;
+    const standardDeviation = Math.sqrt(variance);
+  
+    return Number(standardDeviation.toFixed(2));
+  }
 }
