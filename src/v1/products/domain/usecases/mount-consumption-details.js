@@ -22,29 +22,14 @@ export class MountConsumptionDetails {
    * }}
    */
   execute(params) {
-    const totalConsumptionsInKwm = params.consumptionsInKw.reduce(
-      (total, current) => {
-        return (total += current)
-      },
-      0
-    )
-
-    const totalConsumptionsInMoney = params.consumptionsInMoney.reduce(
-      (total, current) => {
-        return (total += current)
-      },
-      0
-    )
-
-    const averageInKw = totalConsumptionsInKwm / params.consumptionsInKw.length
+    const averageInKw = MathHelper.getAverage(params.consumptionsInKw, { ignoreFalsyNumbers: true })
     const modeInKw = MathHelper.getMode(params.consumptionsInKw)
     const kwStandardDeviation = MathHelper.getStandardDeviation(
       params.consumptionsInKw
     )
     const maxKwmConsumption = Math.max(...params.consumptionsInKw)
 
-    const averageInMoney =
-      totalConsumptionsInMoney / params.consumptionsInMoney.length
+    const averageInMoney = MathHelper.getAverage(params.consumptionsInMoney, { ignoreFalsyNumbers: true })
     const modeInMoney = MathHelper.getMode(params.consumptionsInMoney)
     const moneyStandardDeviation = MathHelper.getStandardDeviation(
       params.consumptionsInMoney
