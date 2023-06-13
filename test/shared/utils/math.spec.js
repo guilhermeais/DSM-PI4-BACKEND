@@ -22,6 +22,19 @@ describe('MathHelper', () => {
 
       expect(result).toEqual(expectedAverage)
     })
+
+    describe('ignore falsy numbers', () => {
+      test('should ignore all negative or zeros from the average', () => {
+        const numbers = [2, 4, 0, 0, 0, 0, 0, 0]
+        const expectedAverage = 3
+
+        const result = MathHelper.getAverage(numbers, {
+          ignoreFalsyNumbers: true
+        })
+
+        expect(result).toEqual(expectedAverage)
+      })
+    })
   })
 
   describe('getStandardDesviation()', () => {
