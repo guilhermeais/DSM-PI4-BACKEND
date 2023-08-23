@@ -12,3 +12,10 @@ services:
       - '3306:3306'
     expose:
       - '3306'
+  app: 
+    build: .
+    restart: always
+    volumes: 
+      - .:/home/node/app
+    command:  
+      - 'npm start'
