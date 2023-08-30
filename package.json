@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "cross-env NODE_ENV=test TZ=America/Sao_Paulo vitest",
+    "test": "npx cross-env NODE_ENV=test TZ=America/Sao_Paulo vitest",
     "test:unit": "npm t -- --config vitest.config.unit.js",
     "pretest:e2e": "docker compose up -d db-test",
     "test:e2e": "npm t -- --config vitest.config.e2e.js",
@@ -13,8 +13,8 @@
     "pretest:integration": "docker compose up -d db-test",
     "test:integration": "npm t -- --config vitest.config.integration.js",
     "posttest:integration": "docker compose down",
-    "start:legacy": "cross-env TZ=America/Sao_Paulo node --experimental-specifier-resolution=node src/legacy/index.js",
-    "start": "cross-env TZ=America/Sao_Paulo node --experimental-specifier-resolution=node src/v1/config/index.js",
+    "start:legacy": "npx cross-env TZ=America/Sao_Paulo node --experimental-specifier-resolution=node src/legacy/index.js",
+    "start": "npx cross-env TZ=America/Sao_Paulo node --experimental-specifier-resolution=node src/v1/config/index.js",
     "migrate:up": "node --experimental-specifier-resolution=node src/v1/config/database/migrate-database.js up",
     "migrate:down": "node --experimental-specifier-resolution=node src/v1/config/database/migrate-database.js down"
   },
