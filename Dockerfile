@@ -4,4 +4,4 @@ WORKDIR /home/node/app
 
 USER node
 
-CMD npm i --silent && npm run migrate:up
+CMD ["npm i --silent && npm run migrate:up"]
