@@ -16,3 +16,5 @@ services:
     build: .
     restart: always
     command: 'npm start'
+    ports:
+      - '${PORT}:${PORT}'
