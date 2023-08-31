@@ -1,7 +1,10 @@
-FROM node:18-slim
+FROM node:16-slim
 
 WORKDIR /home/node/app
 
-USER node
+COPY ./package.json package.json 
+COPY ./package-lock.json package-lock.json 
 
-CMD ["npm i --silent && npm run migrate:up"]
+RUN npm i
+
+COPY . .
